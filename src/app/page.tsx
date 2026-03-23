@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 /* ================================================================
-   rakuda Mail - Landing Page
+   rakuda Mail - Landing Page (Redesigned)
    AI-powered email generation platform
    ================================================================ */
 
@@ -11,73 +11,77 @@ import { useEffect, useState, useCallback } from "react";
 const TONES = [
   {
     id: "formal",
-    label: "\u30D5\u30A9\u30FC\u30DE\u30EB",
-    emoji: "\uD83D\uDC54",
-    tag: "\u4E01\u5BE7\u30FB\u683C\u5F0F",
-    subject: "Re: \u65B0\u898F\u304A\u53D6\u5F15\u306E\u3054\u76F8\u8AC7\u306B\u3064\u3044\u3066",
-    body: `\u682A\u5F0F\u4F1A\u793E\u25CB\u25CB
-\u55B6\u696D\u90E8 \u7530\u4E2D\u69D8
+    label: "フォーマル",
+    emoji: "🏢",
+    tag: "丁寧・格式",
+    color: "#1E3A5F",
+    subject: "Re: 新規お取引のご相談について",
+    body: `株式会社〇〇
+営業部 田中様
 
-\u304A\u4E16\u8A71\u306B\u306A\u3063\u3066\u304A\u308A\u307E\u3059\u3002
-\u682A\u5F0F\u4F1A\u793E\u30E9\u30AF\u30C0\u306E\u5C71\u7530\u3067\u3054\u3056\u3044\u307E\u3059\u3002
+お世話になっております。
+株式会社ラクダの山田でございます。
 
-\u5148\u65E5\u306F\u304A\u5FD9\u3057\u3044\u4E2D\u3001\u8CB4\u91CD\u306A\u304A\u6642\u9593\u3092\u3044\u305F\u3060\u304D\u8AA0\u306B\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002
-\u3054\u63D0\u6848\u3044\u305F\u3060\u304D\u307E\u3057\u305F\u65B0\u898F\u304A\u53D6\u5F15\u306E\u4EF6\u306B\u3064\u304D\u307E\u3057\u3066\u3001\u793E\u5185\u306B\u3066\u524D\u5411\u304D\u306B\u691C\u8A0E\u3092\u9032\u3081\u3066\u304A\u308A\u307E\u3059\u3002
+先日はお忙しい中、貴重なお時間をいただき誠にありがとうございました。
+ご提案いただきました新規お取引の件につきまして、社内にて前向きに検討を進めております。
 
-\u3064\u304D\u307E\u3057\u3066\u306F\u3001\u4E0B\u8A18\u306E\u65E5\u7A0B\u306B\u3066\u304A\u6253\u3061\u5408\u308F\u305B\u306E\u304A\u6642\u9593\u3092\u9802\u6234\u3067\u304D\u307E\u3059\u3067\u3057\u3087\u3046\u304B\u3002
+つきましては、下記の日程にてお打ち合わせのお時間を頂戴できますでしょうか。
 
-\u30FB3\u670826\u65E5\uFF08\u6728\uFF0914:00\u301C15:00
-\u30FB3\u670827\u65E5\uFF08\u91D1\uFF0910:00\u301C11:00
+・3月26日（木）14:00〜15:00
+・3月27日（金）10:00〜11:00
 
-\u3054\u591A\u5FD9\u306E\u3068\u3053\u308D\u6050\u308C\u5165\u308A\u307E\u3059\u304C\u3001\u3054\u78BA\u8A8D\u306E\u307B\u3069\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u7533\u3057\u4E0A\u3052\u307E\u3059\u3002
+ご多忙のところ恐れ入りますが、ご確認のほどよろしくお願い申し上げます。
 
-\u5C71\u7530 \u592A\u90CE`,
+山田 太郎`,
   },
   {
     id: "friendly",
-    label: "\u30D5\u30EC\u30F3\u30C9\u30EA\u30FC",
-    emoji: "\uD83D\uDC4B",
-    tag: "\u89AA\u3057\u307F\u30FB\u30AB\u30B8\u30E5\u30A2\u30EB",
-    subject: "Re: \u65B0\u898F\u304A\u53D6\u5F15\u306E\u3054\u76F8\u8AC7\u306B\u3064\u3044\u3066",
-    body: `\u7530\u4E2D\u3055\u3093
+    label: "フレンドリー",
+    emoji: "☕",
+    tag: "親しみ・カジュアル",
+    color: "#059669",
+    subject: "Re: 新規お取引のご相談について",
+    body: `田中さん
 
-\u5148\u65E5\u306F\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\uFF01
-\u3054\u63D0\u6848\u306E\u4EF6\u3001\u30C1\u30FC\u30E0\u3067\u3082\u300C\u305C\u3072\u9032\u3081\u305F\u3044\u300D\u3068\u76DB\u308A\u4E0A\u304C\u3063\u3066\u3044\u307E\u3059\u3002
+先日はありがとうございました！
+ご提案の件、チームでも「ぜひ進めたい」と盛り上がっています。
 
-\u8A73\u3057\u3044\u304A\u8A71\u3092\u304A\u4F3A\u3044\u3057\u305F\u3044\u306E\u3067\u3001\u6765\u9031\u3042\u305F\u308A\u306730\u5206\u307B\u3069\u304A\u6642\u9593\u3044\u305F\u3060\u3051\u307E\u305B\u3093\u304B\uFF1F
+詳しいお話をお伺いしたいので、来週あたりで30分ほどお時間いただけませんか？
 
-\u30FB3/26\uFF08\u6728\uFF0914\u6642\u301C
-\u30FB3/27\uFF08\u91D1\uFF0910\u6642\u301C
+・3/26（木）14時〜
+・3/27（金）10時〜
 
-\u3053\u306E\u3042\u305F\u308A\u3067\u3054\u90FD\u5408\u3044\u304B\u304C\u3067\u3057\u3087\u3046\uFF1F
-\u5225\u306E\u65E5\u7A0B\u3067\u3082\u8ABF\u6574\u3067\u304D\u307E\u3059\u306E\u3067\u3001\u304A\u6C17\u8EFD\u306B\u304A\u77E5\u3089\u305B\u304F\u3060\u3055\u3044\uFF01
+このあたりでご都合いかがでしょう？
+別の日程でも調整できますので、お気軽にお知らせください！
 
-\u5C71\u7530`,
+山田`,
   },
   {
     id: "concise",
-    label: "\u7C21\u6F54",
-    emoji: "\u26A1",
-    tag: "\u7AEF\u7684\u30FB\u52B9\u7387\u7684",
-    subject: "Re: \u65B0\u898F\u304A\u53D6\u5F15\u306E\u4EF6",
-    body: `\u7530\u4E2D\u69D8
+    label: "簡潔",
+    emoji: "⚡",
+    tag: "端的・効率的",
+    color: "#D97706",
+    subject: "Re: 新規お取引の件",
+    body: `田中様
 
-\u304A\u4E16\u8A71\u306B\u306A\u308A\u307E\u3059\u3002
-\u5148\u65E5\u306E\u3054\u63D0\u6848\u3001\u793E\u5185\u3067\u524D\u5411\u304D\u306B\u691C\u8A0E\u4E2D\u3067\u3059\u3002
+お世話になります。
+先日のご提案、社内で前向きに検討中です。
 
-\u4E0B\u8A18\u3044\u305A\u308C\u304B\u3067\u304A\u6253\u3061\u5408\u308F\u305B\u53EF\u80FD\u3067\u3057\u3087\u3046\u304B\u3002
-\u30FB3/26\uFF08\u6728\uFF0914:00\u301C
-\u30FB3/27\uFF08\u91D1\uFF0910:00\u301C
+下記いずれかでお打ち合わせ可能でしょうか。
+・3/26（木）14:00〜
+・3/27（金）10:00〜
 
-\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u3044\u305F\u3057\u307E\u3059\u3002
+よろしくお願いいたします。
 
-\u5C71\u7530`,
+山田`,
   },
   {
     id: "english",
-    label: "\u82F1\u8A9E",
-    emoji: "\uD83C\uDF0F",
-    tag: "English\u30FBGlobal",
+    label: "英語",
+    emoji: "🌐",
+    tag: "English・Global",
+    color: "#7C3AED",
     subject: "Re: New Business Partnership Inquiry",
     body: `Dear Mr. Tanaka,
 
@@ -98,84 +102,87 @@ Taro Yamada`,
 // --- FAQ Data ---
 const FAQS = [
   {
-    q: "\u7121\u6599\u30D7\u30E9\u30F3\u3067\u4F55\u304C\u3067\u304D\u307E\u3059\u304B\uFF1F",
-    a: "\u670820\u901A\u307E\u3067\u306EAI\u30E1\u30FC\u30EB\u751F\u6210\u30013\u7A2E\u985E\u306E\u30C8\u30FC\u30F3\u8ABF\u6574\u3001\u57FA\u672C\u30C6\u30F3\u30D7\u30EC\u30FC\u30C85\u4EF6\u3092\u3054\u5229\u7528\u3044\u305F\u3060\u3051\u307E\u3059\u3002Gmail\u9023\u643A\u3082\u7121\u6599\u3067\u8A2D\u5B9A\u53EF\u80FD\u3067\u3059\u3002\u307E\u305A\u306F\u7121\u6599\u30D7\u30E9\u30F3\u3067\u304A\u8A66\u3057\u304F\u3060\u3055\u3044\u3002",
+    q: "無料プランで何ができますか？",
+    a: "月20通までのAIメール生成、3種類のトーン調整、基本テンプレート5件をご利用いただけます。Gmail連携も無料で設定可能です。まずは無料プランでお試しください。",
   },
   {
-    q: "\u30E1\u30FC\u30EB\u306E\u5185\u5BB9\u306F\u30B5\u30FC\u30D0\u30FC\u306B\u4FDD\u5B58\u3055\u308C\u307E\u3059\u304B\uFF1F",
-    a: "\u3044\u3044\u3048\u3002\u30E9\u30AF\u30C0Mail\u306F\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u3092\u6700\u512A\u5148\u306B\u8A2D\u8A08\u3057\u3066\u3044\u307E\u3059\u3002\u30E1\u30FC\u30EB\u672C\u6587\u306FAI\u51E6\u7406\u5F8C\u306B\u5373\u6642\u524A\u9664\u3055\u308C\u3001\u30B5\u30FC\u30D0\u30FC\u306B\u306F\u4E00\u5207\u4FDD\u5B58\u3057\u307E\u305B\u3093\u3002OAuth\u8A8D\u8A3C\u60C5\u5831\u3082\u6697\u53F7\u5316\u3057\u3066\u7BA1\u7406\u3057\u3066\u3044\u307E\u3059\u3002",
+    q: "メールの内容はサーバーに保存されますか？",
+    a: "いいえ。ラクダMailはプライバシーを最優先に設計しています。メール本文はAI処理後に即時削除され、サーバーには一切保存しません。OAuth認証情報も暗号化して管理しています。",
   },
   {
-    q: "\u3069\u306E\u30E1\u30FC\u30EB\u30B5\u30FC\u30D3\u30B9\u306B\u5BFE\u5FDC\u3057\u3066\u3044\u307E\u3059\u304B\uFF1F",
-    a: "\u73FE\u5728\u306FGmail\uFF08Google Workspace\u542B\u3080\uFF09\u306B\u5BFE\u5FDC\u3057\u3066\u3044\u307E\u3059\u3002Outlook\u5BFE\u5FDC\u306F2026\u5E74Q2\u306B\u30EA\u30EA\u30FC\u30B9\u4E88\u5B9A\u3067\u3059\u3002API\u306B\u3088\u308B\u5916\u90E8\u30B5\u30FC\u30D3\u30B9\u9023\u643A\u3082\u9806\u6B21\u62E1\u5927\u3057\u3066\u3044\u304D\u307E\u3059\u3002",
+    q: "どのメールサービスに対応していますか？",
+    a: "現在はGmail（Google Workspace含む）に対応しています。Outlook対応は2026年Q2にリリース予定です。API連携による外部サービス連携も順次拡大していきます。",
   },
   {
-    q: "AI\u304C\u751F\u6210\u3057\u305F\u6587\u7AE0\u306F\u305D\u306E\u307E\u307E\u9001\u308C\u308B\u30AF\u30AA\u30EA\u30C6\u30A3\u3067\u3059\u304B\uFF1F",
-    a: "\u306F\u3044\u3002\u30D3\u30B8\u30CD\u30B9\u30E1\u30FC\u30EB\u306B\u7279\u5316\u3057\u305F\u8A00\u8A9E\u30E2\u30C7\u30EB\u3092\u63A1\u7528\u3057\u3066\u304A\u308A\u3001\u656C\u8A9E\u306E\u4F7F\u3044\u5206\u3051\u3084\u6587\u8108\u306B\u5FDC\u3058\u305F\u9069\u5207\u306A\u8868\u73FE\u3092\u751F\u6210\u3057\u307E\u3059\u3002\u3082\u3061\u308D\u3093\u9001\u4FE1\u524D\u306E\u78BA\u8A8D\u30FB\u7DE8\u96C6\u3082\u53EF\u80FD\u3067\u3059\u3002\u793E\u5185\u30C6\u30B9\u30C8\u3067\u306F92%\u306E\u30E6\u30FC\u30B6\u30FC\u304C\u300C\u4FEE\u6B63\u306A\u3057\u3067\u9001\u4FE1\u53EF\u80FD\u300D\u3068\u56DE\u7B54\u3057\u3066\u3044\u307E\u3059\u3002",
+    q: "AIが生成した文章はそのまま送れるクオリティですか？",
+    a: "はい。ビジネスメールに特化した言語モデルを採用しており、敬語の使い分けや文脈に応じた適切な表現を生成します。社内テストでは92%のユーザーが「修正なしで送信可能」と回答しています。",
   },
   {
-    q: "\u30C1\u30FC\u30E0\u30D7\u30E9\u30F3\u306E\u6700\u4F4E\u4EBA\u6570\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F",
-    a: "\u6700\u4F4E3\u540D\u304B\u3089\u3054\u5229\u7528\u3044\u305F\u3060\u3051\u307E\u3059\u3002\u30C1\u30FC\u30E0\u5168\u4F53\u3067\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u3084\u30C8\u30FC\u30F3\u8A2D\u5B9A\u3092\u5171\u6709\u3067\u304D\u3001\u30E1\u30FC\u30EB\u306E\u54C1\u8CEA\u3092\u7D44\u7E54\u3068\u3057\u3066\u7D71\u4E00\u3067\u304D\u307E\u3059\u300210\u540D\u4EE5\u4E0A\u306E\u3054\u5951\u7D04\u306F\u5225\u9014\u304A\u898B\u7A4D\u3082\u308A\u3044\u305F\u3057\u307E\u3059\u3002",
+    q: "チームプランの最低人数はありますか？",
+    a: "最低3名からご利用いただけます。チーム全体でテンプレートやトーン設定を共有でき、メールの品質を組織として統一できます。10名以上のご契約は別途お見積もりいたします。",
   },
   {
-    q: "\u89E3\u7D04\u306F\u3044\u3064\u3067\u3082\u3067\u304D\u307E\u3059\u304B\uFF1F",
-    a: "\u306F\u3044\u3001\u3044\u3064\u3067\u3082\u89E3\u7D04\u53EF\u80FD\u3067\u3059\u3002\u89E3\u7D04\u5F8C\u3082\u5F53\u6708\u672B\u307E\u3067\u306F\u3054\u5229\u7528\u3044\u305F\u3060\u3051\u307E\u3059\u3002\u5E74\u9593\u30D7\u30E9\u30F3\uFF082\u30F6\u6708\u5206\u304A\u5F97\uFF09\u3082\u3042\u308A\u307E\u3059\u304C\u3001\u3053\u3061\u3089\u3082\u9014\u4E2D\u89E3\u7D04\u306B\u5BFE\u5FDC\u3057\u3066\u3044\u307E\u3059\u3002",
+    q: "解約はいつでもできますか？",
+    a: "はい、いつでも解約可能です。解約後も当月末まではご利用いただけます。年間プラン（2ヶ月分お得）もありますが、こちらも途中解約に対応しています。",
   },
 ];
 
 // --- Feature Data ---
 const FEATURES = [
   {
-    icon: "\uD83E\uDD16",
+    icon: "🤖",
     color: "blue",
-    title: "AI\u81EA\u52D5\u751F\u6210",
-    desc: "\u53D7\u4FE1\u30E1\u30FC\u30EB\u306E\u6587\u8108\u3092\u89E3\u6790\u3057\u3001\u6700\u9069\u306A\u8FD4\u4FE1\u30C9\u30E9\u30D5\u30C8\u3092\u77AC\u6642\u306B\u751F\u6210\u3002\u656C\u8A9E\u30EC\u30D9\u30EB\u3082\u81EA\u52D5\u5224\u5B9A\u3057\u307E\u3059\u3002",
+    title: "文脈を読むAI生成",
+    desc: "受信メールの文脈・過去のやり取りまで解析。「お礼」「日程調整」「断り」など意図を自動判別し、適切な返信ドラフトを0.8秒で生成します。",
+    stat: "0.8秒",
+    statLabel: "平均生成時間",
   },
   {
-    icon: "\uD83C\uDFAF",
+    icon: "🎭",
     color: "purple",
-    title: "\u30C8\u30FC\u30F3\u8ABF\u6574",
-    desc: "\u30D5\u30A9\u30FC\u30DE\u30EB\u30FB\u30D5\u30EC\u30F3\u30C9\u30EA\u30FC\u30FB\u7C21\u6F54\u30FB\u82F1\u8A9E\u306A\u3069\u3001\u76F8\u624B\u3084\u30B7\u30FC\u30F3\u306B\u5408\u308F\u305B\u305F\u6587\u4F53\u30921\u30AF\u30EA\u30C3\u30AF\u3067\u5207\u308A\u66FF\u3048\u3002",
+    title: "4段階トーン調整",
+    desc: "取締役宛の格式文書から、チーム内のカジュアルなやり取りまで。1クリックで文体をフォーマル・フレンドリー・簡潔・英語に切り替えます。",
+    stat: "4種",
+    statLabel: "トーンバリエーション",
   },
   {
-    icon: "\uD83D\uDCCB",
+    icon: "📐",
     color: "green",
-    title: "\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u7BA1\u7406",
-    desc: "\u3088\u304F\u4F7F\u3046\u6587\u9762\u3092\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u3068\u3057\u3066\u4FDD\u5B58\u3002\u30AB\u30B9\u30BF\u30E0\u5909\u6570\u3067\u5B9B\u540D\u3084\u65E5\u6642\u3092\u81EA\u52D5\u5DEE\u3057\u8FBC\u307F\u3067\u304D\u307E\u3059\u3002",
+    title: "テンプレート+変数",
+    desc: "よく使う文面をテンプレート保存。{{宛名}}や{{日時}}のカスタム変数で、定型業務を完全自動化。チーム共有も可能です。",
+    stat: "無制限",
+    statLabel: "テンプレート保存数",
   },
   {
-    icon: "\uD83D\uDC65",
+    icon: "👥",
     color: "amber",
-    title: "\u30C1\u30FC\u30E0\u5171\u6709",
-    desc: "\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u3084\u30C8\u30FC\u30F3\u8A2D\u5B9A\u3092\u30C1\u30FC\u30E0\u5168\u4F53\u3067\u5171\u6709\u3002\u7D44\u7E54\u3068\u3057\u3066\u30E1\u30FC\u30EB\u54C1\u8CEA\u3092\u7D71\u4E00\u3067\u304D\u307E\u3059\u3002",
+    title: "チーム品質統一",
+    desc: "新人もベテランも同じクオリティのメールを。トーン設定・テンプレートをチーム全体で共有し、メールの品質を組織レベルで底上げします。",
+    stat: "92%",
+    statLabel: "修正なし送信率",
   },
   {
-    icon: "\uD83C\uDF0D",
+    icon: "🌏",
     color: "pink",
-    title: "\u591A\u8A00\u8A9E\u5BFE\u5FDC",
-    desc: "\u65E5\u672C\u8A9E\u30FB\u82F1\u8A9E\u30FB\u4E2D\u56FD\u8A9E\u30FB\u97D3\u56FD\u8A9E\u306B\u5BFE\u5FDC\u3002\u6D77\u5916\u3068\u306E\u3084\u308A\u53D6\u308A\u3082AI\u304C\u9069\u5207\u306A\u8A00\u8A9E\u3067\u8FD4\u4FE1\u3092\u4F5C\u6210\u3002",
+    title: "日英中韓 4言語対応",
+    desc: "海外クライアントへの返信も、AIが適切な言語・文化的ニュアンスで作成。翻訳ツール不要、そのまま送れる自然な外国語メールを生成します。",
+    stat: "4言語",
+    statLabel: "対応言語数",
   },
   {
-    icon: "\uD83D\uDD12",
+    icon: "🛡️",
     color: "navy",
-    title: "Gmail OAuth\u9023\u643A",
-    desc: "Google\u306E\u516C\u5F0FOAuth\u8A8D\u8A3C\u3067\u5B89\u5168\u306B\u9023\u643A\u3002\u30E1\u30FC\u30EB\u672C\u6587\u306F\u30B5\u30FC\u30D0\u30FC\u306B\u4FDD\u5B58\u305B\u305A\u3001\u51E6\u7406\u5F8C\u306B\u5373\u6642\u524A\u9664\u3002",
+    title: "ゼロデータ保存",
+    desc: "メール本文はAI処理後に即時削除。サーバーに一切保存しません。Google公式OAuth認証、暗号化通信。SOC2準拠のセキュリティ基盤で運用しています。",
+    stat: "0件",
+    statLabel: "サーバー保存データ",
   },
 ];
 
 // --- SVG Icons ---
 function ChevronDown() {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 4l4 4 4-4" />
     </svg>
   );
@@ -183,16 +190,7 @@ function ChevronDown() {
 
 function ArrowRight() {
   return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 7h12M8 2l5 5-5 5" />
     </svg>
   );
@@ -200,17 +198,16 @@ function ArrowRight() {
 
 function CheckIcon() {
   return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 10 10"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1.5 5.5L4 8l5-6" />
+    </svg>
+  );
+}
+
+function SparkleIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" />
     </svg>
   );
 }
@@ -219,7 +216,7 @@ function CheckIcon() {
 function useScrollFade() {
   useEffect(() => {
     const elements = document.querySelectorAll(
-      ".fade-in, .fade-in-left, .fade-in-right"
+      ".fade-in, .fade-in-left, .fade-in-right, .fade-in-scale"
     );
     if (!elements.length) return;
 
@@ -231,7 +228,7 @@ function useScrollFade() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -239,11 +236,52 @@ function useScrollFade() {
   }, []);
 }
 
+// --- Animated counter hook ---
+function useCountUp(end: number, duration: number = 1600) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started) {
+          setStarted(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+    let start = 0;
+    const step = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [started, end, duration]);
+
+  return { count, ref };
+}
+
 // ================================================================
 // HEADER
 // ================================================================
 function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -257,22 +295,26 @@ function Header() {
         <a href="#" className="header-logo">
           <div className="header-logo-icon">R</div>
           <div className="header-logo-text">
-            {"\u30E9\u30AF\u30C0"}<span>Mail</span>
+            ラクダ<span>Mail</span>
           </div>
         </a>
 
-        <nav className="header-nav">
-          <a href="#features">{"\u6A5F\u80FD"}</a>
-          <a href="#how">{"\u4F7F\u3044\u65B9"}</a>
-          <a href="#pricing">{"\u6599\u91D1"}</a>
-          <a href="#faq">FAQ</a>
+        <nav className={`header-nav ${mobileOpen ? "open" : ""}`}>
+          <a href="#features" onClick={() => setMobileOpen(false)}>機能</a>
+          <a href="#demo" onClick={() => setMobileOpen(false)}>デモ</a>
+          <a href="#pricing" onClick={() => setMobileOpen(false)}>料金</a>
+          <a href="#faq" onClick={() => setMobileOpen(false)}>FAQ</a>
         </nav>
 
         <a href="#cta" className="header-cta">
-          {"\u7121\u6599\u3067\u59CB\u3081\u308B"}
+          無料で試す
         </a>
 
-        <button className="mobile-menu-btn" aria-label="Menu">
+        <button
+          className={`mobile-menu-btn ${mobileOpen ? "open" : ""}`}
+          aria-label="メニューを開く"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
           <span />
           <span />
           <span />
@@ -286,48 +328,55 @@ function Header() {
 // HERO
 // ================================================================
 function HeroSection() {
+  const statUsers = useCountUp(4720);
+  const statRate = useCountUp(92);
+  const statMin = useCountUp(47);
+
   return (
     <section className="hero" id="hero">
       <div className="hero-inner">
         <div className="hero-content fade-in">
           <div className="hero-badge">
             <span className="hero-badge-dot" />
-            Gmail{"\u9023\u643A\u3067\u4ECA\u3059\u3050\u4F7F\u3048\u308B"}
+            Gmail連携で今すぐ使える
           </div>
 
           <h1>
-            {"\u30E1\u30FC\u30EB\u3092\u3001"}
+            メール返信、
             <br />
-            <span className="accent-text">AI{"\u306B\u4EFB\u305B\u308B\u3002"}</span>
+            <span className="accent-text">もう悩まない。</span>
           </h1>
 
           <p className="hero-subtitle">
-            {"\u53D7\u4FE1\u30E1\u30FC\u30EB\u3092\u8AAD\u307F\u53D6\u308A\u3001\u6700\u9069\u306A\u30C8\u30FC\u30F3\u3067\u8FD4\u4FE1\u30C9\u30E9\u30D5\u30C8\u3092\u81EA\u52D5\u751F\u6210\u3002"}
-            {"\u0031\u65E547\u5206\u306E\u30E1\u30FC\u30EB\u4F5C\u696D\u3092\u3001\u308F\u305A\u304B3\u5206\u306B\u3002"}
+            営業、カスタマーサクセス、経理。毎日47分かかるメール返信を、
+            AIが3分に短縮。敬語の使い分けも、トーンの調整も、全部おまかせ。
           </p>
 
           <div className="hero-actions">
-            <a href="#cta" className="btn-primary">
-              {"\u7121\u6599\u3067\u59CB\u3081\u308B"}
+            <a href="#cta" className="btn-primary btn-glow">
+              <SparkleIcon />
+              無料で始める
               <ArrowRight />
             </a>
             <a href="#demo" className="btn-secondary">
-              {"\u30C7\u30E2\u3092\u898B\u308B"}
+              デモを見る
             </a>
           </div>
 
           <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hero-stat-number">4,720+</div>
-              <div className="hero-stat-label">{"\u30E6\u30FC\u30B6\u30FC"}</div>
+            <div className="hero-stat" ref={statUsers.ref}>
+              <div className="hero-stat-number">{statUsers.count.toLocaleString()}+</div>
+              <div className="hero-stat-label">ユーザー</div>
             </div>
-            <div className="hero-stat">
-              <div className="hero-stat-number">92%</div>
-              <div className="hero-stat-label">{"\u4FEE\u6B63\u306A\u3057\u9001\u4FE1\u7387"}</div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat" ref={statRate.ref}>
+              <div className="hero-stat-number">{statRate.count}%</div>
+              <div className="hero-stat-label">修正なし送信率</div>
             </div>
-            <div className="hero-stat">
-              <div className="hero-stat-number">47{"\u5206"}</div>
-              <div className="hero-stat-label">1{"\u65E5\u306E\u6642\u77ED\u52B9\u679C"}</div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat" ref={statMin.ref}>
+              <div className="hero-stat-number">{statMin.count}分</div>
+              <div className="hero-stat-label">1日の時短効果</div>
             </div>
           </div>
         </div>
@@ -335,58 +384,91 @@ function HeroSection() {
         <div className="hero-mockup fade-in stagger-2">
           <div className="hero-mockup-window">
             <div className="mockup-titlebar">
-              <div className="mockup-dot" />
-              <div className="mockup-dot" />
-              <div className="mockup-dot" />
-              <div className="mockup-url">mail.rakuda-ai.com</div>
+              <div className="mockup-dots">
+                <div className="mockup-dot red" />
+                <div className="mockup-dot yellow" />
+                <div className="mockup-dot green" />
+              </div>
+              <div className="mockup-url">
+                <span className="mockup-lock">🔒</span>
+                mail.rakuda-ai.com
+              </div>
+              <div className="mockup-dots-spacer" />
             </div>
 
             <div className="mockup-body">
-              <div className="mockup-email-before">
-                <div className="mockup-email-header">
-                  <div className="mockup-avatar">{"\u7530"}</div>
-                  <div className="mockup-sender-info">
-                    <div className="mockup-sender">{"\u7530\u4E2D \u4E00\u90CE"}</div>
-                    <div className="mockup-subject">
-                      {"\u65B0\u898F\u304A\u53D6\u5F15\u306E\u3054\u76F8\u8AC7\u306B\u3064\u3044\u3066"}
-                    </div>
-                  </div>
+              <div className="mockup-sidebar">
+                <div className="mockup-sidebar-item active">
+                  <span className="mockup-sidebar-dot" />
+                  受信トレイ
+                  <span className="mockup-sidebar-badge">3</span>
                 </div>
-                <div className="mockup-email-body">
-                  {"\u5C71\u7530\u69D8\u3001\u5148\u65E5\u306F\u304A\u6642\u9593\u3092\u3044\u305F\u3060\u304D\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002\u5F0A\u793E\u30B5\u30FC\u30D3\u30B9\u306B\u3064\u3044\u3066\u3054\u691C\u8A0E\u3044\u305F\u3060\u3051\u308B\u3068\u5E78\u3044\u3067\u3059\u3002\u6765\u9031\u3042\u305F\u308A\u3067..."}
-                </div>
+                <div className="mockup-sidebar-item">送信済み</div>
+                <div className="mockup-sidebar-item">下書き</div>
               </div>
 
-              <div className="mockup-email-after">
-                <div className="mockup-ai-badge">
-                  <span className="mockup-ai-dot" />
-                  AI{"\u751F\u6210\u4E2D"}...
+              <div className="mockup-main">
+                <div className="mockup-email-before">
+                  <div className="mockup-email-label-tag">受信メール</div>
+                  <div className="mockup-email-header">
+                    <div className="mockup-avatar">田</div>
+                    <div className="mockup-sender-info">
+                      <div className="mockup-sender">田中 一郎</div>
+                      <div className="mockup-subject">新規お取引のご相談について</div>
+                    </div>
+                    <div className="mockup-time">9:14</div>
+                  </div>
+                  <div className="mockup-email-body">
+                    山田様、先日はお時間をいただきありがとうございました。弊社サービスについてご検討いただけると幸いです。来週あたりで...
+                  </div>
                 </div>
-                <div className="mockup-generated-text">
-                  {"\u7530\u4E2D\u69D8"}
-                  <br />
-                  <br />
-                  {"\u304A\u4E16\u8A71\u306B\u306A\u3063\u3066\u304A\u308A\u307E\u3059\u3002"}
-                  <br />
-                  {"\u5148\u65E5\u306F\u8CB4\u91CD\u306A\u304A\u6642\u9593\u3092\u3044\u305F\u3060\u304D"}
-                  <span className="highlight">{"\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002"}</span>
-                  <br />
-                  {"\u3054\u63D0\u6848\u306E\u4EF6\u3001\u793E\u5185\u306B\u3066"}
-                  <span className="highlight">{"\u524D\u5411\u304D\u306B\u691C\u8A0E"}</span>
-                  {"\u3057\u3066\u304A\u308A\u307E\u3059\u3002"}
-                  <span className="mockup-cursor" />
+
+                <div className="mockup-ai-process">
+                  <div className="mockup-ai-line" />
+                  <div className="mockup-ai-chip">
+                    <span className="mockup-ai-pulse" />
+                    AI生成中
+                  </div>
+                  <div className="mockup-ai-line" />
+                </div>
+
+                <div className="mockup-email-after">
+                  <div className="mockup-email-label-tag ai">AI生成ドラフト</div>
+                  <div className="mockup-tone-selector">
+                    <div className="mockup-tone-chip active">フォーマル</div>
+                    <div className="mockup-tone-chip">カジュアル</div>
+                    <div className="mockup-tone-chip">簡潔</div>
+                  </div>
+                  <div className="mockup-generated-text">
+                    田中様
+                    <br /><br />
+                    お世話になっております。
+                    <br />
+                    先日は貴重なお時間をいただき
+                    <span className="highlight">ありがとうございました。</span>
+                    <br />
+                    ご提案の件、社内にて
+                    <span className="highlight">前向きに検討</span>
+                    しております。
+                    <span className="mockup-cursor" />
+                  </div>
+                  <div className="mockup-actions-bar">
+                    <div className="mockup-action-btn primary">送信</div>
+                    <div className="mockup-action-btn">編集</div>
+                    <div className="mockup-action-btn">トーン変更</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="hero-float-badge top-right">
-            <span style={{ fontSize: 14 }}>{"\uD83D\uDD12"}</span>
-            <span>{"\u30C7\u30FC\u30BF\u975E\u4FDD\u5B58"}</span>
+            <span style={{ fontSize: 14 }}>🔒</span>
+            <span>データ非保存</span>
           </div>
           <div className="hero-float-badge bottom-left">
-            <span style={{ fontSize: 14 }}>{"\u26A1"}</span>
-            <span>3{"\u79D2\u3067\u751F\u6210"}</span>
+            <span style={{ fontSize: 14 }}>⚡</span>
+            <span>0.8秒で生成</span>
           </div>
         </div>
       </div>
@@ -395,121 +477,131 @@ function HeroSection() {
 }
 
 // ================================================================
-// EMAIL DEMO
+// SOCIAL PROOF (Logos)
 // ================================================================
-function DemoSection() {
+function SocialProofStrip() {
   return (
-    <section className="section-demo" id="demo">
+    <section className="social-proof">
+      <div className="container">
+        <p className="social-proof-label">スタートアップから上場企業まで、470社以上が導入</p>
+        <div className="social-proof-logos">
+          {["TechCorp", "MediaOne", "FinGrowth", "CloudBase", "SmartOps"].map((name) => (
+            <div key={name} className="social-proof-logo">
+              <span className="social-proof-logo-text">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ================================================================
+// BEFORE/AFTER
+// ================================================================
+function BeforeAfterSection() {
+  return (
+    <section className="section-before-after" id="demo">
       <div className="container">
         <div className="fade-in">
           <div className="section-label">
             <span className="section-label-line" />
-            DEMO
+            BEFORE / AFTER
           </div>
           <h2 className="section-heading">
-            {"\u53D7\u4FE1\u30E1\u30FC\u30EB\u304B\u3089\u3001\u5373\u5EA7\u306B\u8FD4\u4FE1\u30C9\u30E9\u30D5\u30C8"}
+            メール1通に<span className="heading-accent">15分</span>かけていた時代は、終わり
           </h2>
           <p className="section-description">
-            {"\u30E1\u30FC\u30EB\u3092\u9078\u629E\u3059\u308B\u3060\u3051\u3067\u3001\u6587\u8108\u3092\u7406\u89E3\u3057\u305FAI\u304C\u9069\u5207\u306A\u8FD4\u4FE1\u3092\u81EA\u52D5\u751F\u6210\u3002\u656C\u8A9E\u30EC\u30D9\u30EB\u3084\u8981\u4EF6\u306E\u629C\u3051\u6F0F\u308C\u3082\u30C1\u30A7\u30C3\u30AF\u3057\u307E\u3059\u3002"}
+            敬語チェック、トーン調整、誤字確認。地味に時間を奪うメール作業を、AIが丸ごと引き受けます。
           </p>
         </div>
 
-        <div className="demo-grid">
-          {/* Received */}
-          <div className="demo-card fade-in-left">
-            <div className="demo-card-header">
-              <div className="demo-card-header-left">
-                <div className="demo-card-icon received">{"\uD83D\uDCE9"}</div>
-                <div className="demo-card-title">{"\u53D7\u4FE1\u30E1\u30FC\u30EB"}</div>
-              </div>
-              <div className="demo-card-badge time">3{"\u670823\u65E5"} 9:14</div>
+        <div className="ba-grid">
+          {/* Before */}
+          <div className="ba-card before fade-in-left">
+            <div className="ba-card-label before">
+              <span className="ba-label-icon">😩</span>
+              Before
             </div>
-            <div className="demo-card-body">
-              <div className="demo-email-meta">
-                <div className="demo-email-meta-row">
-                  <span className="demo-email-meta-label">From</span>
-                  <span className="demo-email-meta-value">
-                    {"\u7530\u4E2D\u4E00\u90CE"} &lt;tanaka@example.co.jp&gt;
-                  </span>
-                </div>
-                <div className="demo-email-meta-row">
-                  <span className="demo-email-meta-label">{"\u4EF6\u540D"}</span>
-                  <span className="demo-email-meta-value">
-                    {"\u65B0\u898F\u304A\u53D6\u5F15\u306E\u3054\u76F8\u8AC7\u306B\u3064\u3044\u3066"}
-                  </span>
-                </div>
+            <div className="ba-card-body">
+              <div className="ba-step">
+                <div className="ba-step-time">2分</div>
+                <div className="ba-step-desc">受信メールを読み込み、要点を把握</div>
               </div>
-              <div className="demo-email-text">
-                <p>{"\u5C71\u7530\u69D8"}</p>
-                <p>
-                  {"\u304A\u4E16\u8A71\u306B\u306A\u3063\u3066\u304A\u308A\u307E\u3059\u3002\u682A\u5F0F\u4F1A\u793E\u25CB\u25CB\u306E\u7530\u4E2D\u3067\u3059\u3002\u5148\u65E5\u306E\u30AB\u30F3\u30D5\u30A1\u30EC\u30F3\u30B9\u3067\u306F\u3001\u8CB4\u91CD\u306A\u304A\u8A71\u3092\u304A\u805E\u304B\u305B\u3044\u305F\u3060\u304D\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002"}
-                </p>
-                <p>
-                  {"\u5F0A\u793E\u3067\u306F\u73FE\u5728\u3001\u5FA1\u793E\u306E\u30D7\u30ED\u30C0\u30AF\u30C8\u3092\u793E\u5185\u5C0E\u5165\u3059\u308B\u65B9\u5411\u3067\u691C\u8A0E\u3092\u9032\u3081\u3066\u304A\u308A\u307E\u3059\u3002\u3064\u304D\u307E\u3057\u3066\u306F\u3001\u5177\u4F53\u7684\u306A\u5C0E\u5165\u30B9\u30B1\u30B8\u30E5\u30FC\u30EB\u3084\u8CBB\u7528\u611F\u306B\u3064\u3044\u3066\u3001\u4E00\u5EA6\u304A\u6253\u3061\u5408\u308F\u305B\u306E\u6A5F\u4F1A\u3092\u3044\u305F\u3060\u3051\u306A\u3044\u3067\u3057\u3087\u3046\u304B\u3002"}
-                </p>
-                <p>
-                  {"\u6765\u9031\u3067\u3042\u308C\u3070\u300126\u65E5\uFF08\u6728\uFF09\u306E\u5348\u5F8C\u3082\u3057\u304F\u306F27\u65E5\uFF08\u91D1\uFF09\u306E\u5348\u524D\u4E2D\u304C\u7A7A\u3044\u3066\u304A\u308A\u307E\u3059\u3002"}
-                </p>
-                <p>{"\u3054\u691C\u8A0E\u306E\u307B\u3069\u3001\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u3044\u305F\u3057\u307E\u3059\u3002"}</p>
+              <div className="ba-step">
+                <div className="ba-step-time">5分</div>
+                <div className="ba-step-desc">返信文を一から打ち込み</div>
+              </div>
+              <div className="ba-step">
+                <div className="ba-step-time">3分</div>
+                <div className="ba-step-desc">敬語の使い方を確認・修正</div>
+              </div>
+              <div className="ba-step">
+                <div className="ba-step-time">3分</div>
+                <div className="ba-step-desc">トーンが適切か何度も読み返し</div>
+              </div>
+              <div className="ba-step">
+                <div className="ba-step-time">2分</div>
+                <div className="ba-step-desc">誤字脱字チェックと最終確認</div>
+              </div>
+              <div className="ba-total">
+                <span className="ba-total-time bad">合計 15分 / 通</span>
+                <span className="ba-total-note">1日20通 = 5時間</span>
               </div>
             </div>
           </div>
 
-          {/* Arrow desktop */}
-          <div className="demo-arrow fade-in">
-            <div className="demo-arrow-circle">{"\u2192"}</div>
-          </div>
-
-          {/* Arrow mobile */}
-          <div className="demo-arrow-mobile fade-in">
-            <div className="demo-arrow-circle">{"\u2193"}</div>
-          </div>
-
-          {/* AI Draft */}
-          <div className="demo-card fade-in-right">
-            <div className="demo-card-header">
-              <div className="demo-card-header-left">
-                <div className="demo-card-icon generated">{"\u2728"}</div>
-                <div className="demo-card-title">AI{"\u751F\u6210\u30C9\u30E9\u30D5\u30C8"}</div>
-              </div>
-              <div className="demo-card-badge ai">{"\u81EA\u52D5\u751F\u6210"} 0.8{"\u79D2"}</div>
+          {/* Arrow */}
+          <div className="ba-arrow fade-in-scale">
+            <div className="ba-arrow-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
             </div>
-            <div className="demo-card-body">
-              <div className="demo-email-meta">
-                <div className="demo-email-meta-row">
-                  <span className="demo-email-meta-label">To</span>
-                  <span className="demo-email-meta-value">
-                    {"\u7530\u4E2D\u4E00\u90CE"} &lt;tanaka@example.co.jp&gt;
-                  </span>
-                </div>
-                <div className="demo-email-meta-row">
-                  <span className="demo-email-meta-label">{"\u4EF6\u540D"}</span>
-                  <span className="demo-email-meta-value">
-                    Re: {"\u65B0\u898F\u304A\u53D6\u5F15\u306E\u3054\u76F8\u8AC7\u306B\u3064\u3044\u3066"}
-                  </span>
-                </div>
+          </div>
+          <div className="ba-arrow-mobile fade-in-scale">
+            <div className="ba-arrow-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </div>
+          </div>
+
+          {/* After */}
+          <div className="ba-card after fade-in-right">
+            <div className="ba-card-label after">
+              <span className="ba-label-icon">✨</span>
+              After
+            </div>
+            <div className="ba-card-body">
+              <div className="ba-step">
+                <div className="ba-step-time fast">1秒</div>
+                <div className="ba-step-desc">メールを選択するだけ</div>
               </div>
-              <div className="demo-email-text">
-                <p>{"\u7530\u4E2D\u69D8"}</p>
-                <p>
-                  {"\u304A\u4E16\u8A71\u306B\u306A\u3063\u3066\u304A\u308A\u307E\u3059\u3002\u5148\u65E5\u306E\u30AB\u30F3\u30D5\u30A1\u30EC\u30F3\u30B9\u3067\u306F\u3001\u3053\u3061\u3089\u3053\u305D\u5927\u5909\u6709\u610F\u7FA9\u306A\u304A\u6642\u9593\u3092\u3044\u305F\u3060\u304D\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u3002"}
-                </p>
-                <div className="demo-email-highlight">
-                  {"\u5F0A\u793E\u30D7\u30ED\u30C0\u30AF\u30C8\u306E\u5C0E\u5165\u3092\u3054\u691C\u8A0E\u3044\u305F\u3060\u3051\u308B\u3068\u306E\u3053\u3068\u3001\u5927\u5909\u5B09\u3057\u304F\u5B58\u3058\u307E\u3059\u3002\u5177\u4F53\u7684\u306A\u30B9\u30B1\u30B8\u30E5\u30FC\u30EB\u30FB\u8CBB\u7528\u611F\u306B\u3064\u3044\u3066\u3001\u305C\u3072\u304A\u6253\u3061\u5408\u308F\u305B\u3055\u305B\u3066\u3044\u305F\u3060\u3051\u308C\u3070\u3068\u601D\u3044\u307E\u3059\u3002"}
-                </div>
-                <p>
-                  {"\u3054\u63D0\u793A\u3044\u305F\u3060\u3044\u305F\u65E5\u7A0B\u306E\u3046\u3061\u3001\u4E0B\u8A18\u306B\u3066\u304A\u4F3A\u3044\u3067\u304D\u308C\u3070\u3068\u5B58\u3058\u307E\u3059\u3002"}
-                </p>
-                <p>
-                  <strong>3{"\u670826\u65E5\uFF08\u6728\uFF0914:00\u301C15:00"}</strong>
-                </p>
-                <p>
-                  {"\u30AA\u30F3\u30E9\u30A4\u30F3\u30FB\u5BFE\u9762\u3044\u305A\u308C\u3082\u3054\u5BFE\u5FDC\u53EF\u80FD\u3067\u3059\u306E\u3067\u3001\u3054\u5E0C\u671B\u3092\u304A\u77E5\u3089\u305B\u3044\u305F\u3060\u3051\u307E\u3059\u3068\u5E78\u3044\u3067\u3059\u3002"}
-                </p>
-                <p>{"\u4F55\u5352\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u7533\u3057\u4E0A\u3052\u307E\u3059\u3002"}</p>
+              <div className="ba-step">
+                <div className="ba-step-time fast">0.8秒</div>
+                <div className="ba-step-desc">AIが文脈解析、ドラフト自動生成</div>
+              </div>
+              <div className="ba-step">
+                <div className="ba-step-time fast">自動</div>
+                <div className="ba-step-desc">敬語・トーンをAIが自動判定</div>
+              </div>
+              <div className="ba-step">
+                <div className="ba-step-time fast">10秒</div>
+                <div className="ba-step-desc">軽くチェックして送信ボタン</div>
+              </div>
+              <div className="ba-total">
+                <span className="ba-total-time good">合計 約30秒 / 通</span>
+                <span className="ba-total-note">1日20通 = わずか10分</span>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="ba-bottom-cta fade-in">
+          <p className="ba-savings">
+            1日あたり<strong>4時間50分</strong>を取り戻せる計算です
+          </p>
         </div>
       </div>
     </section>
@@ -529,10 +621,10 @@ function FeaturesSection() {
             FEATURES
           </div>
           <h2 className="section-heading">
-            {"\u30E1\u30FC\u30EB\u696D\u52D9\u3092\u3001\u6839\u672C\u304B\u3089\u5909\u3048\u308B6\u3064\u306E\u6A5F\u80FD"}
+            「返信が思いつかない」を<br className="br-desktop" />ゼロにする6つの機能
           </h2>
-          <p className="section-description">
-            {"\u5358\u306A\u308B\u6587\u7AE0\u751F\u6210\u3067\u306F\u306A\u304F\u3001\u30D3\u30B8\u30CD\u30B9\u30E1\u30FC\u30EB\u306B\u5FC5\u8981\u306A\u6587\u8108\u7406\u89E3\u30FB\u656C\u8A9E\u5224\u5B9A\u30FB\u30C8\u30FC\u30F3\u8ABF\u6574\u3092AI\u304C\u4E00\u62EC\u51E6\u7406\u3057\u307E\u3059\u3002"}
+          <p className="section-description" style={{ marginLeft: "auto", marginRight: "auto" }}>
+            単なる文章生成ではなく、ビジネスメールに必要な文脈理解・敬語判定・トーン調整をAIが一括処理します。
           </p>
         </div>
 
@@ -545,6 +637,10 @@ function FeaturesSection() {
               <div className={`feature-icon ${f.color}`}>{f.icon}</div>
               <h3 className="feature-title">{f.title}</h3>
               <p className="feature-desc">{f.desc}</p>
+              <div className="feature-stat">
+                <span className="feature-stat-number">{f.stat}</span>
+                <span className="feature-stat-label">{f.statLabel}</span>
+              </div>
             </div>
           ))}
         </div>
@@ -565,40 +661,52 @@ function HowSection() {
             <span className="section-label-line" />
             HOW IT WORKS
           </div>
-          <h2 className="section-heading">3{"\u30B9\u30C6\u30C3\u30D7\u3067\u3001\u30E1\u30FC\u30EB\u304C\u5B8C\u6210"}</h2>
-          <p className="section-description">
-            {"\u8907\u96D1\u306A\u8A2D\u5B9A\u306F\u4E0D\u8981\u3002Gmail\u3092\u63A5\u7D9A\u3057\u305F\u3089\u3001\u3059\u3050\u306B\u4F7F\u3044\u59CB\u3081\u3089\u308C\u307E\u3059\u3002"}
+          <h2 className="section-heading">セットアップは30秒。あとはAIが働きます</h2>
+          <p className="section-description" style={{ marginLeft: "auto", marginRight: "auto" }}>
+            Gmailアカウントでログインするだけ。複雑な設定は一切不要です。
           </p>
         </div>
 
         <div className="how-steps">
           <div className="how-step fade-in stagger-1">
-            <div className="how-step-number">
-              <span className="how-step-icon">{"\uD83D\uDCE7"}</span>
+            <div className="how-step-number-wrap">
+              <div className="how-step-number">1</div>
             </div>
-            <h3 className="how-step-title">{"\u30E1\u30FC\u30EB\u3092\u9078\u629E"}</h3>
+            <h3 className="how-step-title">メールを選択</h3>
             <p className="how-step-desc">
-              {"\u8FD4\u4FE1\u3057\u305F\u3044\u30E1\u30FC\u30EB\u3092\u9078\u3076\u3060\u3051\u3002AI\u304C\u9001\u4FE1\u8005\u3068\u306E\u95A2\u4FC2\u6027\u3084\u904E\u53BB\u306E\u3084\u308A\u53D6\u308A\u3082\u8003\u616E\u3057\u3066\u6587\u8108\u3092\u628A\u63E1\u3057\u307E\u3059\u3002"}
+              返信したいメールを選ぶだけ。AIが送信者との関係性や過去のやり取りも考慮して文脈を把握します。
             </p>
+          </div>
+
+          <div className="how-connector fade-in">
+            <svg width="100%" height="2" preserveAspectRatio="none">
+              <line x1="0" y1="1" x2="100%" y2="1" stroke="#E2E8F0" strokeWidth="2" strokeDasharray="6 6" />
+            </svg>
           </div>
 
           <div className="how-step fade-in stagger-2">
-            <div className="how-step-number">
-              <span className="how-step-icon">{"\uD83C\uDFA8"}</span>
+            <div className="how-step-number-wrap">
+              <div className="how-step-number">2</div>
             </div>
-            <h3 className="how-step-title">{"\u30C8\u30FC\u30F3\u3092\u9078\u3076"}</h3>
+            <h3 className="how-step-title">トーンを選ぶ</h3>
             <p className="how-step-desc">
-              {"\u30D5\u30A9\u30FC\u30DE\u30EB\u30FB\u30AB\u30B8\u30E5\u30A2\u30EB\u30FB\u7C21\u6F54\u306A\u3069\u3001\u76EE\u7684\u306B\u5408\u3063\u305F\u30C8\u30FC\u30F3\u3092\u30EF\u30F3\u30AF\u30EA\u30C3\u30AF\u3067\u6307\u5B9A\u3002\u81EA\u52D5\u5224\u5B9A\u30E2\u30FC\u30C9\u3082\u3002"}
+              フォーマル・カジュアル・簡潔など、目的に合ったトーンをワンクリックで指定。自動判定モードも。
             </p>
           </div>
 
+          <div className="how-connector fade-in">
+            <svg width="100%" height="2" preserveAspectRatio="none">
+              <line x1="0" y1="1" x2="100%" y2="1" stroke="#E2E8F0" strokeWidth="2" strokeDasharray="6 6" />
+            </svg>
+          </div>
+
           <div className="how-step fade-in stagger-3">
-            <div className="how-step-number">
-              <span className="how-step-icon">{"\uD83D\uDE80"}</span>
+            <div className="how-step-number-wrap">
+              <div className="how-step-number">3</div>
             </div>
-            <h3 className="how-step-title">{"\u78BA\u8A8D\u3057\u3066\u9001\u4FE1"}</h3>
+            <h3 className="how-step-title">確認して送信</h3>
             <p className="how-step-desc">
-              {"\u751F\u6210\u3055\u308C\u305F\u30C9\u30E9\u30D5\u30C8\u3092\u78BA\u8A8D\u30FB\u5FAE\u8ABF\u6574\u3057\u3066\u9001\u4FE1\u3002\u5E73\u57470.8\u79D2\u3067\u751F\u6210\u5B8C\u4E86\u300192%\u304C\u305D\u306E\u307E\u307E\u9001\u4FE1\u53EF\u80FD\u306A\u54C1\u8CEA\u3067\u3059\u3002"}
+              生成されたドラフトを確認・微調整して送信。平均0.8秒で生成完了、92%がそのまま送信可能な品質です。
             </p>
           </div>
         </div>
@@ -612,7 +720,17 @@ function HowSection() {
 // ================================================================
 function ToneSection() {
   const [activeTone, setActiveTone] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const tone = TONES[activeTone];
+
+  const handleToneChange = useCallback((i: number) => {
+    if (i === activeTone) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveTone(i);
+      setIsTransitioning(false);
+    }, 200);
+  }, [activeTone]);
 
   return (
     <section className="section-tone" id="tone">
@@ -623,10 +741,11 @@ function ToneSection() {
             TONE ADJUSTMENT
           </div>
           <h2 className="section-heading">
-            {"\u540C\u3058\u5185\u5BB9\u3067\u3082\u3001\u30C8\u30FC\u30F3\u3067\u5370\u8C61\u306F\u5909\u308F\u308B"}
+            同じ内容でも、トーンで<span className="heading-accent">印象が変わる</span>
           </h2>
           <p className="section-description">
-            {"\u76F8\u624B\u3068\u306E\u95A2\u4FC2\u6027\u3084\u30B7\u30FC\u30F3\u306B\u5FDC\u3058\u3066\u3001\u6700\u9069\u306A\u30C8\u30FC\u30F3\u3092\u9078\u629E\u3002\u793E\u5185\u30C1\u30E3\u30C3\u30C8\u306E\u3088\u3046\u306A\u8FD4\u4FE1\u304B\u3089\u3001\u53D6\u7DE0\u5F79\u5B9B\u306E\u6B63\u5F0F\u6587\u66F8\u307E\u3067\u5BFE\u5FDC\u3057\u307E\u3059\u3002"}
+            取引先の役員には格式ある文面、社内のチームメンバーにはカジュアルに。
+            タブを切り替えて、同じ返信がどう変わるか体験してください。
           </p>
         </div>
 
@@ -636,10 +755,18 @@ function ToneSection() {
               <button
                 key={t.id}
                 className={`tone-tab ${i === activeTone ? "active" : ""}`}
-                onClick={() => setActiveTone(i)}
+                onClick={() => handleToneChange(i)}
+                style={
+                  i === activeTone
+                    ? { "--tone-active-color": t.color } as React.CSSProperties
+                    : undefined
+                }
               >
                 <span className="tone-tab-emoji">{t.emoji}</span>
-                {t.label}
+                <div className="tone-tab-content">
+                  <span className="tone-tab-label">{t.label}</span>
+                  <span className="tone-tab-tag">{t.tag}</span>
+                </div>
               </button>
             ))}
           </div>
@@ -647,11 +774,16 @@ function ToneSection() {
           <div className="tone-preview">
             <div className="tone-preview-header">
               <div className="tone-preview-header-left">
-                <div className="tone-preview-label">{"\u30D7\u30EC\u30D3\u30E5\u30FC"}</div>
+                <div className="tone-preview-label">プレビュー</div>
               </div>
-              <div className="tone-preview-tag">{tone.tag}</div>
+              <div
+                className="tone-preview-tag"
+                style={{ "--tone-color": tone.color } as React.CSSProperties}
+              >
+                {tone.tag}
+              </div>
             </div>
-            <div className="tone-preview-body">
+            <div className={`tone-preview-body ${isTransitioning ? "transitioning" : ""}`}>
               <div className="tone-preview-subject">{tone.subject}</div>
               <div className="tone-preview-text">{tone.body}</div>
             </div>
@@ -666,6 +798,8 @@ function ToneSection() {
 // PRICING
 // ================================================================
 function PricingSection() {
+  const [annual, setAnnual] = useState(false);
+
   return (
     <section className="section-pricing" id="pricing">
       <div className="container">
@@ -674,115 +808,140 @@ function PricingSection() {
             <span className="section-label-line" />
             PRICING
           </div>
-          <h2 className="section-heading">{"\u30B7\u30F3\u30D7\u30EB\u3067\u900F\u660E\u306A\u6599\u91D1\u4F53\u7CFB"}</h2>
-          <p className="section-description">
-            {"\u5FC5\u8981\u306A\u5206\u3060\u3051\u3002\u96A0\u308C\u305F\u30B3\u30B9\u30C8\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u5E74\u9593\u30D7\u30E9\u30F3\u306A\u30892\u30F6\u6708\u5206\u304A\u5F97\u3067\u3059\u3002"}
+          <h2 className="section-heading">
+            まず無料で試す。納得してから課金
+          </h2>
+          <p className="section-description" style={{ marginLeft: "auto", marginRight: "auto" }}>
+            隠れたコストはありません。14日間の無料トライアル付き。いつでも解約可能です。
           </p>
+
+          <div className="pricing-toggle">
+            <span className={`pricing-toggle-label ${!annual ? "active" : ""}`}>月払い</span>
+            <button
+              className={`pricing-toggle-switch ${annual ? "on" : ""}`}
+              onClick={() => setAnnual(!annual)}
+              aria-label="年払いに切り替え"
+            >
+              <span className="pricing-toggle-knob" />
+            </button>
+            <span className={`pricing-toggle-label ${annual ? "active" : ""}`}>
+              年払い
+              <span className="pricing-toggle-save">2ヶ月分お得</span>
+            </span>
+          </div>
         </div>
 
         <div className="pricing-grid">
           {/* Free */}
           <div className="pricing-card fade-in stagger-1">
-            <div className="pricing-name">Free</div>
-            <div className="pricing-tagline">{"\u307E\u305A\u306F\u8A66\u3057\u3066\u307F\u305F\u3044\u65B9\u306B"}</div>
-            <div className="pricing-price">
-              <span className="pricing-currency">&yen;</span>
-              <span className="pricing-amount">0</span>
+            <div className="pricing-card-inner">
+              <div className="pricing-name">Free</div>
+              <div className="pricing-tagline">まずは体験したい個人の方に</div>
+              <div className="pricing-price">
+                <span className="pricing-currency">&yen;</span>
+                <span className="pricing-amount">0</span>
+              </div>
+              <div className="pricing-note">ずっと無料・クレカ不要</div>
+              <div className="pricing-divider" />
+              <ul className="pricing-features">
+                <li className="pricing-feature">
+                  <span className="pricing-check blue"><CheckIcon /></span>
+                  月20通までのAIメール生成
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check blue"><CheckIcon /></span>
+                  3種類のトーン調整
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check blue"><CheckIcon /></span>
+                  基本テンプレート5件
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check blue"><CheckIcon /></span>
+                  Gmail連携
+                </li>
+              </ul>
+              <button className="pricing-btn outline">無料で始める</button>
             </div>
-            <div className="pricing-note">{"\u305A\u3063\u3068\u7121\u6599"}</div>
-            <div className="pricing-divider" />
-            <ul className="pricing-features">
-              <li className="pricing-feature">
-                <span className="pricing-check blue"><CheckIcon /></span>
-                {"\u670820\u901A\u307E\u3067\u306EAI\u30E1\u30FC\u30EB\u751F\u6210"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check blue"><CheckIcon /></span>
-                3{"\u7A2E\u985E\u306E\u30C8\u30FC\u30F3\u8ABF\u6574"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check blue"><CheckIcon /></span>
-                {"\u57FA\u672C\u30C6\u30F3\u30D7\u30EC\u30FC\u30C85\u4EF6"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check blue"><CheckIcon /></span>
-                Gmail{"\u9023\u643A"}
-              </li>
-            </ul>
-            <button className="pricing-btn outline">{"\u7121\u6599\u3067\u59CB\u3081\u308B"}</button>
           </div>
 
           {/* Pro */}
           <div className="pricing-card popular fade-in stagger-2">
-            <div className="pricing-popular-badge">{"\u4E00\u756A\u4EBA\u6C17"}</div>
-            <div className="pricing-name">Pro</div>
-            <div className="pricing-tagline">{"\u30E1\u30FC\u30EB\u696D\u52D9\u3092\u672C\u683C\u7684\u306B\u52B9\u7387\u5316\u3057\u305F\u3044\u65B9\u306B"}</div>
-            <div className="pricing-price">
-              <span className="pricing-currency">&yen;</span>
-              <span className="pricing-amount">2,980</span>
-              <span className="pricing-period">/月</span>
+            <div className="pricing-popular-badge">最も選ばれています</div>
+            <div className="pricing-card-inner">
+              <div className="pricing-name">Pro</div>
+              <div className="pricing-tagline">メール業務を本格的に効率化したい方に</div>
+              <div className="pricing-price">
+                <span className="pricing-currency">&yen;</span>
+                <span className="pricing-amount">{annual ? "2,480" : "2,980"}</span>
+                <span className="pricing-period">/月</span>
+              </div>
+              <div className="pricing-note">
+                {annual ? "年間29,760円（月額換算）" : "年間プランなら月¥2,480"}
+              </div>
+              <div className="pricing-divider" />
+              <ul className="pricing-features">
+                <li className="pricing-feature">
+                  <span className="pricing-check accent"><CheckIcon /></span>
+                  <strong>無制限</strong>のAIメール生成
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check accent"><CheckIcon /></span>
+                  全トーン＋カスタムトーン
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check accent"><CheckIcon /></span>
+                  テンプレート無制限
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check accent"><CheckIcon /></span>
+                  多言語対応（4言語）
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check accent"><CheckIcon /></span>
+                  優先サポート
+                </li>
+              </ul>
+              <button className="pricing-btn filled">14日間無料で試す</button>
             </div>
-            <div className="pricing-note">{"\u5E74\u9593\u30D7\u30E9\u30F3\u306A\u3089\u6708"}&yen;2,480</div>
-            <div className="pricing-divider" />
-            <ul className="pricing-features">
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                <strong>{"\u7121\u5236\u9650"}</strong>{"\u306EAI\u30E1\u30FC\u30EB\u751F\u6210"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u5168\u30C8\u30FC\u30F3\uFF0B\u30AB\u30B9\u30BF\u30E0\u30C8\u30FC\u30F3"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8\u7121\u5236\u9650"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u591A\u8A00\u8A9E\u5BFE\u5FDC\uFF084\u8A00\u8A9E\uFF09"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u512A\u5148\u30B5\u30DD\u30FC\u30C8"}
-              </li>
-            </ul>
-            <button className="pricing-btn filled">Pro{"\u3092\u59CB\u3081\u308B"}</button>
           </div>
 
           {/* Team */}
-          <div className="pricing-card fade-in stagger-3">
-            <div className="pricing-name">Team</div>
-            <div className="pricing-tagline">{"\u7D44\u7E54\u5168\u4F53\u3067\u30E1\u30FC\u30EB\u54C1\u8CEA\u3092\u7D71\u4E00\u3057\u305F\u3044\u30C1\u30FC\u30E0\u306B"}</div>
-            <div className="pricing-price">
-              <span className="pricing-currency">&yen;</span>
-              <span className="pricing-amount">9,800</span>
-              <span className="pricing-period">/月</span>
+          <div className="pricing-card team fade-in stagger-3">
+            <div className="pricing-card-inner">
+              <div className="pricing-name">Team</div>
+              <div className="pricing-tagline">組織全体のメール品質を統一したいチームに</div>
+              <div className="pricing-price">
+                <span className="pricing-currency">&yen;</span>
+                <span className="pricing-amount">{annual ? "7,800" : "9,800"}</span>
+                <span className="pricing-period">/月</span>
+              </div>
+              <div className="pricing-note">3名〜 / 1名あたり月&yen;{annual ? "2,600" : "3,267"}</div>
+              <div className="pricing-divider" />
+              <ul className="pricing-features">
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  Proの全機能
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  チーム共有テンプレート
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  管理者ダッシュボード
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  利用状況レポート
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  専任サポート担当
+                </li>
+              </ul>
+              <button className="pricing-btn dark">お問い合わせ</button>
             </div>
-            <div className="pricing-note">3{"\u540D\u301C"} / 1{"\u540D\u3042\u305F\u308A\u6708"}&yen;3,267</div>
-            <div className="pricing-divider" />
-            <ul className="pricing-features">
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                Pro{"\u306E\u5168\u6A5F\u80FD"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u30C1\u30FC\u30E0\u5171\u6709\u30C6\u30F3\u30D7\u30EC\u30FC\u30C8"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u7BA1\u7406\u8005\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u5229\u7528\u72B6\u6CC1\u30EC\u30DD\u30FC\u30C8"}
-              </li>
-              <li className="pricing-feature">
-                <span className="pricing-check green"><CheckIcon /></span>
-                {"\u5C02\u4EFB\u30B5\u30DD\u30FC\u30C8\u62C5\u5F53"}
-              </li>
-            </ul>
-            <button className="pricing-btn dark">{"\u304A\u554F\u3044\u5408\u308F\u305B"}</button>
           </div>
         </div>
       </div>
@@ -808,9 +967,9 @@ function FAQSection() {
             <span className="section-label-line" />
             FAQ
           </div>
-          <h2 className="section-heading">{"\u3088\u304F\u3042\u308B\u8CEA\u554F"}</h2>
-          <p className="section-description">
-            {"\u3054\u4E0D\u660E\u70B9\u304C\u3042\u308C\u3070\u3001\u304A\u6C17\u8EFD\u306B\u304A\u554F\u3044\u5408\u308F\u305B\u304F\u3060\u3055\u3044\u3002"}
+          <h2 className="section-heading">よくある質問</h2>
+          <p className="section-description" style={{ marginLeft: "auto", marginRight: "auto" }}>
+            導入前の疑問にお答えします。ここにない質問は、お気軽にお問い合わせください。
           </p>
         </div>
 
@@ -845,24 +1004,36 @@ function CTASection() {
     <section className="section-cta" id="cta">
       <div className="container">
         <div className="cta-inner fade-in">
+          <div className="cta-eyecatch">
+            <SparkleIcon />
+          </div>
           <h2 className="cta-heading">
-            {"\u30E1\u30FC\u30EB\u4F5C\u696D\u306B\u3001\u3082\u3046\u6642\u9593\u3092\u304B\u3051\u306A\u3044"}
+            今日から、メール返信のストレスをなくしませんか
           </h2>
           <p className="cta-desc">
-            {"\u7121\u6599\u30D7\u30E9\u30F3\u3067\u4ECA\u3059\u3050\u59CB\u3081\u3089\u308C\u307E\u3059\u3002\u30AF\u30EC\u30B8\u30C3\u30C8\u30AB\u30FC\u30C9\u4E0D\u8981\u3001Gmail\u30A2\u30AB\u30A6\u30F3\u30C8\u3060\u3051\u3067\u767B\u9332\u5B8C\u4E86\u3002"}
+            無料プランで今すぐ始められます。クレジットカード不要、Gmailアカウントだけで登録完了。
           </p>
           <div className="cta-actions">
-            <a href="#" className="btn-primary">
-              {"\u7121\u6599\u30A2\u30AB\u30A6\u30F3\u30C8\u3092\u4F5C\u6210"}
+            <a href="#" className="btn-primary btn-glow btn-large">
+              <SparkleIcon />
+              無料アカウントを作成
               <ArrowRight />
             </a>
-            <a href="#" className="btn-secondary">
-              {"\u5C0E\u5165\u4E8B\u4F8B\u3092\u898B\u308B"}
-            </a>
           </div>
-          <p className="cta-note">
-            {"\u767B\u9332\u306F30\u79D2"} ・ {"\u30AF\u30EC\u30B8\u30C3\u30C8\u30AB\u30FC\u30C9\u4E0D\u8981"} ・ {"\u3044\u3064\u3067\u3082\u89E3\u7D04\u53EF\u80FD"}
-          </p>
+          <div className="cta-trust-signals">
+            <div className="cta-trust-item">
+              <CheckIcon />
+              <span>登録30秒</span>
+            </div>
+            <div className="cta-trust-item">
+              <CheckIcon />
+              <span>クレカ不要</span>
+            </div>
+            <div className="cta-trust-item">
+              <CheckIcon />
+              <span>いつでも解約可能</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -881,53 +1052,54 @@ function Footer() {
             <a href="#" className="footer-logo">
               <div className="footer-logo-icon">R</div>
               <div className="footer-logo-text">
-                {"\u30E9\u30AF\u30C0"}<span>Mail</span>
+                ラクダ<span>Mail</span>
               </div>
             </a>
             <p className="footer-brand-desc">
-              AI{"\u304C\u30D3\u30B8\u30CD\u30B9\u30E1\u30FC\u30EB\u3092\u81EA\u52D5\u751F\u6210\u3002\u3042\u306A\u305F\u306E\u6642\u9593\u3092\u3001\u3082\u3063\u3068\u4FA1\u5024\u306E\u3042\u308B\u3053\u3068\u306B\u3002"}
+              AIがビジネスメールを自動生成。<br />
+              あなたの時間を、もっと価値のあることに。
             </p>
           </div>
 
           <div>
-            <h4 className="footer-col-title">{"\u30D7\u30ED\u30C0\u30AF\u30C8"}</h4>
+            <h4 className="footer-col-title">プロダクト</h4>
             <ul className="footer-links">
-              <li><a href="#">{"\u6A5F\u80FD\u4E00\u89A7"}</a></li>
-              <li><a href="#">{"\u6599\u91D1\u30D7\u30E9\u30F3"}</a></li>
-              <li><a href="#">{"\u5C0E\u5165\u4E8B\u4F8B"}</a></li>
-              <li><a href="#">{"\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8"}</a></li>
+              <li><a href="#">機能一覧</a></li>
+              <li><a href="#">料金プラン</a></li>
+              <li><a href="#">導入事例</a></li>
+              <li><a href="#">アップデート</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="footer-col-title">{"\u30B5\u30DD\u30FC\u30C8"}</h4>
+            <h4 className="footer-col-title">サポート</h4>
             <ul className="footer-links">
-              <li><a href="#">{"\u30D8\u30EB\u30D7\u30BB\u30F3\u30BF\u30FC"}</a></li>
-              <li><a href="#">{"\u304A\u554F\u3044\u5408\u308F\u305B"}</a></li>
-              <li><a href="#">API {"\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8"}</a></li>
-              <li><a href="#">{"\u30B9\u30C6\u30FC\u30BF\u30B9"}</a></li>
+              <li><a href="#">ヘルプセンター</a></li>
+              <li><a href="#">お問い合わせ</a></li>
+              <li><a href="#">API ドキュメント</a></li>
+              <li><a href="#">ステータス</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="footer-col-title">{"\u4F1A\u793E"}</h4>
+            <h4 className="footer-col-title">会社</h4>
             <ul className="footer-links">
-              <li><a href="#">{"\u904B\u55B6\u4F1A\u793E"}</a></li>
-              <li><a href="#">{"\u63A1\u7528\u60C5\u5831"}</a></li>
-              <li><a href="#">{"\u30D6\u30ED\u30B0"}</a></li>
-              <li><a href="#">{"\u304A\u77E5\u3089\u305B"}</a></li>
+              <li><a href="#">運営会社</a></li>
+              <li><a href="#">採用情報</a></li>
+              <li><a href="#">ブログ</a></li>
+              <li><a href="#">お知らせ</a></li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p className="footer-copyright">
-            &copy; 2026 {"\u30E9\u30AF\u30C0"}Mail. All rights reserved.
+            &copy; 2026 ラクダMail. All rights reserved.
           </p>
           <div className="footer-bottom-links">
-            <a href="#">{"\u5229\u7528\u898F\u7D04"}</a>
-            <a href="#">{"\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u30DD\u30EA\u30B7\u30FC"}</a>
-            <a href="#">{"\u7279\u5B9A\u5546\u53D6\u5F15\u6CD5\u306B\u57FA\u3065\u304F\u8868\u8A18"}</a>
+            <a href="#">利用規約</a>
+            <a href="#">プライバシーポリシー</a>
+            <a href="#">特定商取引法に基づく表記</a>
           </div>
         </div>
       </div>
@@ -946,7 +1118,8 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection />
-        <DemoSection />
+        <SocialProofStrip />
+        <BeforeAfterSection />
         <FeaturesSection />
         <HowSection />
         <ToneSection />
