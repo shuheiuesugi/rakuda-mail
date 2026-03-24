@@ -292,11 +292,15 @@ body {
 
 .header-nav a {
   text-decoration: none;
-  color: var(--text-secondary);
-  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
   font-weight: 500;
   transition: color var(--transition-fast);
   position: relative;
+}
+
+.header-nav a:hover {
+  color: #fff;
 }
 
 .header-nav a::after {
@@ -311,13 +315,13 @@ body {
   border-radius: 1px;
 }
 
-.header-nav a:hover {
-  color: var(--text-primary);
-}
-
 .header-nav a:hover::after {
   width: 100%;
 }
+
+/* Scrolled state: nav links become dark */
+.header.scrolled .header-nav a { color: var(--text-secondary); }
+.header.scrolled .header-nav a:hover { color: var(--text-primary); }
 
 .header-cta {
   display: none;
@@ -365,7 +369,7 @@ body {
   gap: 8px;
   font-family: inherit;
   font-weight: 600;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   text-decoration: none;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -375,41 +379,39 @@ body {
 
 .btn-sm {
   padding: 8px 18px;
-  font-size: 13px;
+  font-size: 0.813rem;
 }
 
 .btn-dark {
   background: rgba(255, 255, 255, 0.07);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
 }
 
 .btn-dark:hover {
   background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.25);
-}
-
-.header.scrolled .btn-dark {
-  background: rgba(0, 0, 0, 0.04);
-  color: var(--text-primary);
-  border-color: var(--border);
-}
-
-.header.scrolled .btn-dark:hover {
-  background: rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .btn-cta-call {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
   color: #fff;
+  font-weight: 700;
   border: none;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35), 0 1px 3px rgba(245, 158, 11, 0.2);
 }
 
 .btn-cta-call:hover {
-  background: linear-gradient(135deg, var(--accent-hover) 0%, #1D4ED8 100%);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-cta-call:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 /* Mobile menu button */
@@ -434,9 +436,13 @@ body {
   display: block;
   width: 20px;
   height: 2px;
-  background: var(--text-primary);
+  background: #fff;
   border-radius: 1px;
-  transition: transform var(--transition-base), opacity var(--transition-fast);
+  transition: transform var(--transition-base), opacity var(--transition-fast), background var(--transition-base);
+}
+
+.header.scrolled .mobile-menu-btn span {
+  background: var(--text-primary);
 }
 
 .mobile-menu-btn.open span:nth-child(1) {
