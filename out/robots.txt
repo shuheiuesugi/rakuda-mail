@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://shuheiuesugi.github.io/rakuda-mail/sitemap.xml
