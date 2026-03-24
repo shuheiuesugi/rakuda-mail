@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     siteName: "RAKUDAメール",
     locale: "ja_JP",
     type: "website",
+    // TODO: Create og-image.png (1200x630) and place in public/
+    images: [{ url: "https://shuheiuesugi.github.io/rakuda-mail/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -51,12 +53,12 @@ export default function RootLayout({
             gtag('config', 'G-XXXXXXXXXX');
           `}
         </Script>
-        {/* Microsoft Clarity — TODO: Replace CLARITY_ID with actual project ID */}
+        {/* Microsoft Clarity — Microsoft Clarity (w0q1kgxnan) */}
         <Script id="clarity-init" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/CLARITY_ID";
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/w0q1kgxnan";
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window,document,"clarity","script");
           `}
