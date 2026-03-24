@@ -50,9 +50,15 @@ rakuda-mail/
 ├── public/
 │   ├── favicon.svg          # RAKUDAロゴ（波マーク）
 │   └── robots.txt           # クロール制御
-├── src/app/
+├── src/
+│   ├── components/
+│   │   ├── Icons.tsx        # 共通SVGアイコン（CheckIcon, ArrowRight, SparkleIcon, ChevronDown）
+│   │   ├── BrandLogo.tsx    # HeaderLogo, FooterLogo
+│   │   ├── Footer.tsx       # 共通フッター
+│   │   └── useScrollFade.ts # スクロールフェードhook
+│   └── app/
 │   ├── layout.tsx           # 共通レイアウト（GA4, Clarity, OGP）
-│   ├── globals.css          # 全ページ共通CSS（3100行超）
+│   ├── globals.css          # 全ページ共通CSS（3200行超）
 │   ├── page.tsx             # メインLP（Hero, Features, Tone, Pricing, FAQ, CTA）
 │   ├── signup/page.tsx      # サインアップ（インラインCSS、自己完結）
 │   ├── book-call/page.tsx   # 導入相談フォーム
@@ -119,10 +125,21 @@ rakuda-mail/
 | GA4 ID設定 | 🔴 必須 | `layout.tsx` の `G-XXXXXXXXXX` を実際のMeasurement IDに差替 |
 | Clarity ID設定 | 🔴 必須 | `layout.tsx` の `CLARITY_ID` を実際のProject IDに差替 |
 | Meta Pixel追加 | 🟡 推奨 | Facebook/Instagram広告を使う場合はPixelコードを `layout.tsx` に追加 |
-| OGP画像作成 | 🟡 推奨 | `og:image` 用の1200x630画像を作成・設定 |
+| OGP画像作成 | 🟡 推奨 | `public/og-image.png`（1200x630）を作成。metadata設定済み |
 | Google Ads CV設定 | 🟡 推奨 | Google広告用のコンバージョンタグを追加 |
 | UTMパラメータ引継ぎ | 🟢 改善 | URLのUTMパラメータをsignupフォームに引き継ぐJS実装 |
 | A/Bテストツール | 🟢 改善 | 動的A/Bテストが必要なら Statsig / VWO 等を導入 |
+| Formspree設定 | 🔴 必須 | signup: `SIGNUP_FORM_ID`、book-call: `BOOKCALL_FORM_ID` を差替 |
+
+### ローンチ前セットアップ手順（まとめ）
+
+1. **Formspree**: [formspree.io](https://formspree.io/) でフォーム2つ作成
+   - サインアップ用 → `src/app/signup/page.tsx` の `SIGNUP_FORM_ID` を差替
+   - 導入相談用 → `src/app/book-call/page.tsx` の `BOOKCALL_FORM_ID` を差替
+2. **GA4**: Google Analytics でプロパティ作成 → `src/app/layout.tsx` の `G-XXXXXXXXXX` を差替
+3. **Microsoft Clarity**: プロジェクト作成 → `src/app/layout.tsx` の `CLARITY_ID` を差替
+4. **Meta Pixel**（任意）: Facebook広告を使う場合、`src/app/layout.tsx` の `<head>` 内にPixelコードを追加
+5. **OGP画像**: 1200x630のPNG画像を作成し `public/og-image.png` に配置（metadata設定済み）
 
 ---
 
@@ -132,22 +149,31 @@ rakuda-mail/
 - `fade-in` / `animate-on-scroll` 等の `opacity: 0` → `visible` で `opacity: 1` にするCSSクラスを、React stateで動的にclassNameが変わる要素（FAQ等）に付けると、状態更新時に `visible` が外れて要素が消えるバグが発生する
 - **対策**: FAQ等のインタラクティブ要素には `fade-in` / `animate-on-scroll` を絶対に付けないこと（修正済み）
 
-### フォームのバックエンド未接続
-- `signup/page.tsx` と `book-call/page.tsx` のフォーム送信は現在**フロントエンドのみ**（`setSubmitted(true)` でUI切替するだけ）
-- 実際のデータ送信には Formspree / Google Forms / Supabase 等のバックエンド統合が必要
-- 本番サービス（`mail.rakuda-ai.com`）への接続時に対応予定
+### フォームのバックエンド（Formspree）
+- `signup/page.tsx` と `book-call/page.tsx` は Formspree にPOSTするよう実装済み
+- **TODO**: Formspree でフォームを2つ作成し、IDを差し替える
+  - `signup/page.tsx`: `SIGNUP_FORM_ID` を実際のFormspree Form IDに差替
+  - `book-call/page.tsx`: `BOOKCALL_FORM_ID` を実際のFormspree Form IDに差替
+- Formspree無料プランは月50件まで。本番スケール時はProプランまたは別バックエンドを検討
 
 ### モバイルメニュー
-- ハンバーガーボタンは表示されるが、タップしてもナビゲーションは開かない（onClickハンドラ未実装）
-- モバイルでは直接スクロールでセクションに到達する想定
+- ハンバーガーメニューは3ページ（page.tsx, lp/cost, lp/easy）で実装済み
+- タップでフルスクリーンオーバーレイが開き、ナビリンクをクリックで閉じる
+- ハンバーガーアイコンは開閉時に X マークにアニメーション変化
+
+### 共有コンポーネント（src/components/）
+- `Icons.tsx`: CheckIcon, ArrowRight, SparkleIcon, ChevronDown
+- `BrandLogo.tsx`: HeaderLogo, FooterLogo
+- `Footer.tsx`: 共通フッター（`linkPrefix` propでリンクパス制御）
+- `useScrollFade.ts`: スクロールフェードアニメーションhook
 
 ### ソーシャルプルーフ（現在非表示）
 - メインLPの導入企業ロゴセクションは現在 `return null` で非表示
 - 実際の導入企業ロゴが確保でき次第、`page.tsx` の `SocialProofStrip` コンポーネントを復活させる
 
-### コンポーネント重複
-- Header / Footer / FAQ / Pricing 等のコンポーネントが3ファイル（page.tsx, cost, easy）で重複
-- 今後の改修効率のため `src/components/` への切り出しを推奨
+### コンポーネント共通化（一部完了）
+- Icons, Footer, BrandLogo, useScrollFade は `src/components/` に切り出し済み
+- Header / FAQ / Pricing は各ページで内容が異なるため、引き続きページ内定義
 
 ---
 

@@ -6,7 +6,7 @@ export default function SignupPage() {
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Conversion tracking
     if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
@@ -14,6 +14,16 @@ export default function SignupPage() {
         method: "email",
         event_category: "conversion",
       });
+    }
+    // Submit to Formspree (TODO: Replace SIGNUP_FORM_ID with actual Formspree form ID)
+    try {
+      await fetch("https://formspree.io/f/SIGNUP_FORM_ID", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, _subject: "RAKUDAメール 新規登録" }),
+      });
+    } catch (err) {
+      // Silently fail - form submission is best-effort for now
     }
     setSubmitted(true);
   };

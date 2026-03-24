@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
+import { CheckIcon, ArrowRight, SparkleIcon, ChevronDown } from "@/components/Icons";
+import { HeaderLogo } from "@/components/BrandLogo";
+import { Footer } from "@/components/Footer";
+import { useScrollFade } from "@/components/useScrollFade";
 
 /* ================================================================
    rakuda Mail - Landing Page (Redesigned)
@@ -179,62 +183,6 @@ const FEATURES = [
   },
 ];
 
-// --- SVG Icons ---
-function ChevronDown() {
-  return (
-    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 4l4 4 4-4" />
-    </svg>
-  );
-}
-
-function ArrowRight() {
-  return (
-    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1 7h12M8 2l5 5-5 5" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1.5 5.5L4 8l5-6" />
-    </svg>
-  );
-}
-
-function SparkleIcon() {
-  return (
-    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" />
-    </svg>
-  );
-}
-
-// --- Scroll fade hook ---
-function useScrollFade() {
-  useEffect(() => {
-    const elements = document.querySelectorAll(
-      ".fade-in, .fade-in-left, .fade-in-right, .fade-in-scale"
-    );
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
 
 // --- Animated counter hook ---
 function useCountUp(end: number, duration: number = 1600) {
@@ -281,6 +229,7 @@ function useCountUp(end: number, duration: number = 1600) {
 // ================================================================
 function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -292,17 +241,14 @@ function Header() {
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="header-inner">
         <a href="./" className="header-logo" style={{ display: "flex", alignItems: "center", gap: "0" }}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" className="header-logo-svg" style={{ height: "20px", width: "auto" }}>
-            <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
-            <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
-          </svg>
+          <HeaderLogo />
         </a>
 
-        <nav className="header-nav">
-          <a href="#features">機能</a>
-          <a href="#demo">デモ</a>
-          <a href="#pricing">料金</a>
-          <a href="#faq">FAQ</a>
+        <nav className={`header-nav${mobileOpen ? " mobile-open" : ""}`}>
+          <a href="#features" onClick={() => setMobileOpen(false)}>機能</a>
+          <a href="#demo" onClick={() => setMobileOpen(false)}>デモ</a>
+          <a href="#pricing" onClick={() => setMobileOpen(false)}>料金</a>
+          <a href="#faq" onClick={() => setMobileOpen(false)}>FAQ</a>
         </nav>
 
         <div className="header-cta-group">
@@ -314,7 +260,11 @@ function Header() {
           </a>
         </div>
 
-        <button className="mobile-menu-btn" aria-label="メニューを開く">
+        <button
+          className={`mobile-menu-btn${mobileOpen ? " open" : ""}`}
+          aria-label="メニューを開く"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
           <span />
           <span />
           <span />
@@ -1071,44 +1021,6 @@ function CTASection() {
   );
 }
 
-// ================================================================
-// FOOTER
-// ================================================================
-function Footer() {
-  return (
-    <footer style={{ borderTop: "1px solid #E5E5E5", background: "#fff", padding: "40px 24px" }}>
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32 }}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="20" height="20">
-            <path d="M10,75 C10,75 22,25 38,25 C52,25 44,65 56,65 C68,65 60,20 74,20 C90,20 100,75 100,75"
-                  stroke="#1A1A2E" strokeWidth="7" fill="none" strokeLinecap="round"/>
-          </svg>
-          <span style={{ fontSize: 14, fontWeight: 300, letterSpacing: "0.15em", color: "#111" }}>RAKUDA AI</span>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 32 }}>
-          <div>
-            <h3 style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "#9CA3AF", marginBottom: 12 }}>サポート</h3>
-            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" as const, gap: 8 }}>
-              <li><a href="mailto:info@rakuda-ai.com" style={{ fontSize: 14, color: "#6B7280", textDecoration: "none" }}>info@rakuda-ai.com</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "#9CA3AF", marginBottom: 12 }}>リンク</h3>
-            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column" as const, gap: 8 }}>
-              <li><a href="./terms" style={{ fontSize: 14, color: "#6B7280", textDecoration: "none" }}>利用規約</a></li>
-              <li><a href="./privacy" style={{ fontSize: 14, color: "#6B7280", textDecoration: "none" }}>プライバシーポリシー</a></li>
-              <li><a href="./tokushoho" style={{ fontSize: 14, color: "#6B7280", textDecoration: "none" }}>特定商取引法</a></li>
-              <li><a href="./security" style={{ fontSize: 14, color: "#6B7280", textDecoration: "none" }}>セキュリティ</a></li>
-            </ul>
-          </div>
-        </div>
-        <div style={{ borderTop: "1px solid #E5E5E5", paddingTop: 24, textAlign: "center" as const, fontSize: 12, color: "#9CA3AF" }}>
-          &copy; 2026 Rakuda AI Inc. All rights reserved.
-        </div>
-      </div>
-    </footer>
-  );
-}
 
 // ================================================================
 // MAIN PAGE

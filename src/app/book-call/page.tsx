@@ -21,14 +21,23 @@ export default function BookCallPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Conversion tracking
     if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
       (window as any).gtag("event", "generate_lead", {
         event_category: "conversion",
         event_label: "book_call",
       });
+    }
+    // Submit to Formspree (TODO: Replace BOOKCALL_FORM_ID with actual Formspree form ID)
+    try {
+      await fetch("https://formspree.io/f/BOOKCALL_FORM_ID", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, _subject: "RAKUDAメール 導入相談" }),
+      });
+    } catch (err) {
+      // Silently fail
     }
     setSubmitted(true);
   };
