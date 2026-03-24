@@ -86,7 +86,6 @@ function ChevronDown() {
 // ================================================================
 function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -97,31 +96,30 @@ function Header() {
   return (
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="header-inner">
-        <a href="../" className="header-logo">
-          <svg className="header-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
-            <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32"
-                  stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
-            <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif"
-                  fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
+        <a href="../" className="header-logo" style={{ display: "flex", alignItems: "center", gap: "0" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" className="header-logo-svg" style={{ height: "20px", width: "auto" }}>
+            <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+            <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
           </svg>
         </a>
 
-        <nav className={`header-nav ${mobileOpen ? "open" : ""}`}>
-          <a href="#stats" onClick={() => setMobileOpen(false)}>コスト比較</a>
-          <a href="#features" onClick={() => setMobileOpen(false)}>機能</a>
-          <a href="#pricing" onClick={() => setMobileOpen(false)}>料金</a>
-          <a href="#faq" onClick={() => setMobileOpen(false)}>FAQ</a>
+        <nav className="header-nav">
+          <a href="#stats">コスト比較</a>
+          <a href="#features">機能</a>
+          <a href="#pricing">料金</a>
+          <a href="#faq">FAQ</a>
         </nav>
 
-        <a href="../signup" className="header-cta">
-          無料で試す
-        </a>
+        <div className="header-cta-group">
+          <a href="../book-call" className="btn btn-sm btn-dark">
+            無料相談
+          </a>
+          <a href="../signup" className="btn btn-sm btn-cta-call">
+            無料で始める
+          </a>
+        </div>
 
-        <button
-          className={`mobile-menu-btn ${mobileOpen ? "open" : ""}`}
-          aria-label="メニューを開く"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
+        <button className="mobile-menu-btn" aria-label="メニューを開く">
           <span />
           <span />
           <span />

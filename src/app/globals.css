@@ -346,6 +346,72 @@ body {
   transform: translateY(-1px);
 }
 
+/* Header CTA group (reception-style dual buttons) */
+.header-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 767px) {
+  .header-cta-group { display: none; }
+}
+
+/* Button system */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+.btn-dark {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-dark:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.header.scrolled .btn-dark {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.header.scrolled .btn-dark:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.btn-cta-call {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.btn-cta-call:hover {
+  background: linear-gradient(135deg, var(--accent-hover) 0%, #1D4ED8 100%);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
+}
+
 /* Mobile menu button */
 .mobile-menu-btn {
   display: flex;
