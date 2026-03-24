@@ -5,11 +5,12 @@ export default function TermsPage() {
       <header className="sub-header">
         <div className="sub-header-inner">
           <a href="./" className="sub-header-logo">
-            <div className="sub-header-logo-icon">R</div>
-            <div className="sub-header-logo-text">
-              <span className="sub-header-logo-name">ラクダ<span>Mail</span></span>
-              <span className="sub-header-logo-tagline">AIメール作成ツール</span>
-            </div>
+            <svg className="header-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
+              <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32"
+                    stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+              <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif"
+                    fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
+            </svg>
           </a>
         </div>
       </header>

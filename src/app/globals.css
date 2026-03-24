@@ -236,6 +236,24 @@ body {
   color: var(--text-primary);
 }
 
+/* Brand SVG logo */
+.header-logo-svg {
+  color: #fff;
+  transition: color 0.3s ease;
+  display: block;
+  height: 20px;
+  width: auto;
+}
+
+.header.scrolled .header-logo-svg {
+  color: #1a1a2e;
+}
+
+/* Sub-header (light bg pages) logo color */
+.sub-header .header-logo-svg {
+  color: #1a1a2e;
+}
+
 .header-logo-icon {
   width: 32px;
   height: 32px;

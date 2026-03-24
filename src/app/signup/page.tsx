@@ -17,10 +17,12 @@ export default function SignupPage() {
       <header style={styles.header}>
         <div style={styles.headerInner}>
           <a href="./" style={styles.logoLink}>
-            <div style={styles.logoIcon}>R</div>
-            <div style={styles.logoText}>
-              ラクダ<span style={styles.logoAccent}>Mail</span>
-            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto", color: "#1a1a2e" }}>
+              <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32"
+                    stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+              <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif"
+                    fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
+            </svg>
           </a>
           <a href="./book-call" style={styles.headerContact}>
             導入相談
@@ -53,7 +55,10 @@ export default function SignupPage() {
           <div style={styles.card}>
             <div style={styles.cardHeader}>
               <div style={styles.cardLogoWrap}>
-                <div style={styles.cardLogo}>R</div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="40" height="40">
+                  <path d="M10,75 C10,75 22,25 38,25 C52,25 44,65 56,65 C68,65 60,20 74,20 C90,20 100,75 100,75"
+                        stroke="#3B82F6" strokeWidth="7" fill="none" strokeLinecap="round"/>
+                </svg>
               </div>
               <h1 style={styles.title}>無料アカウントを作成</h1>
               <p style={styles.subtitle}>
