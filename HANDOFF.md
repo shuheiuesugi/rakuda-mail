@@ -57,7 +57,7 @@ rakuda-mail/
 │   │   ├── Footer.tsx       # 共通フッター
 │   │   └── useScrollFade.ts # スクロールフェードhook
 │   └── app/
-│   ├── layout.tsx           # 共通レイアウト（GA4, Clarity, OGP）
+│   ├── layout.tsx           # 共通レイアウト（GTM, Clarity, OGP）
 │   ├── globals.css          # 全ページ共通CSS（3200行超）
 │   ├── page.tsx             # メインLP（Hero, Features, Tone, Pricing, FAQ, CTA）
 │   ├── signup/page.tsx      # サインアップ（インラインCSS、自己完結）
@@ -111,19 +111,17 @@ rakuda-mail/
 ### 実装済み
 | 項目 | 状態 | 備考 |
 |------|------|------|
-| GA4 gtag | ✅ プレースホルダー設置済み | `layout.tsx` — `G-XXXXXXXXXX` を実IDに差替 |
-| Microsoft Clarity | ✅ プレースホルダー設置済み | `layout.tsx` — `CLARITY_ID` を実IDに差替 |
-| コンバージョン追跡 | ✅ 実装済み | signup: `sign_up`イベント、book-call: `generate_lead`イベント |
+| GTM | ✅ 設定済み (GTM-P7H8BZV9) | `layout.tsx` |
+| Microsoft Clarity | ✅ 設定済み (w0q1kgxnan) | `layout.tsx` |
+| コンバージョン追跡 | ✅ 実装済み | signup: `sign_up`, book-call: `generate_lead` (dataLayer.push) |
 | OGP / Twitter Card | ✅ 設定済み | `layout.tsx` の metadata |
 | robots.txt | ✅ 設置済み | `/public/robots.txt` |
 | LP noindex | ✅ 設定済み | `/lp/cost`, `/lp/easy` は `robots: noindex` |
-| LP URL分離 | ✅ 対応済み | 広告ごとに異なるURLでGA4レポート可能 |
+| LP URL分離 | ✅ 対応済み | 広告ごとに異なるURLでレポート可能 |
 
 ### ローンチ前TODO
 | 項目 | 優先度 | 詳細 |
 |------|--------|------|
-| GA4 ID設定 | 🔴 必須 | `layout.tsx` の `G-XXXXXXXXXX` を実際のMeasurement IDに差替 |
-| Clarity ID設定 | 🔴 必須 | `layout.tsx` の `CLARITY_ID` を実際のProject IDに差替 |
 | Meta Pixel追加 | 🟡 推奨 | Facebook/Instagram広告を使う場合はPixelコードを `layout.tsx` に追加 |
 | OGP画像作成 | 🟡 推奨 | `public/og-image.png`（1200x630）を作成。metadata設定済み |
 | Google Ads CV設定 | 🟡 推奨 | Google広告用のコンバージョンタグを追加 |
@@ -136,8 +134,8 @@ rakuda-mail/
 1. **Formspree**: [formspree.io](https://formspree.io/) でフォーム2つ作成
    - サインアップ用 → `src/app/signup/page.tsx` の `SIGNUP_FORM_ID` を差替
    - 導入相談用 → `src/app/book-call/page.tsx` の `BOOKCALL_FORM_ID` を差替
-2. **GA4**: Google Analytics でプロパティ作成 → `src/app/layout.tsx` の `G-XXXXXXXXXX` を差替
-3. **Microsoft Clarity**: プロジェクト作成 → `src/app/layout.tsx` の `CLARITY_ID` を差替
+2. **GTM**: 設定済み (GTM-P7H8BZV9)
+3. **Clarity**: 設定済み (w0q1kgxnan)
 4. **Meta Pixel**（任意）: Facebook広告を使う場合、`src/app/layout.tsx` の `<head>` 内にPixelコードを追加
 5. **OGP画像**: 1200x630のPNG画像を作成し `public/og-image.png` に配置（metadata設定済み）
 
