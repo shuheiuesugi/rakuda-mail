@@ -460,7 +460,7 @@ function PricingSection() {
         </div>
 
         {/* Pricing cards */}
-        <div className="pricing-grid">
+        <div className="pricing-grid cols-3">
           {/* Free */}
           <div className="pricing-card fade-in stagger-1">
             <div className="pricing-card-inner">

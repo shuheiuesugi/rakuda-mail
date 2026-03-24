@@ -2,11 +2,11 @@
   "/_not-found/page": "/_not-found",
   "/book-call/page": "/book-call",
   "/page": "/",
-  "/privacy/page": "/privacy",
-  "/security/page": "/security",
   "/signup/page": "/signup",
-  "/tokushoho/page": "/tokushoho",
+  "/security/page": "/security",
   "/terms/page": "/terms",
-  "/lp/cost/page": "/lp/cost",
-  "/lp/easy/page": "/lp/easy"
+  "/tokushoho/page": "/tokushoho",
+  "/privacy/page": "/privacy",
+  "/lp/easy/page": "/lp/easy",
+  "/lp/cost/page": "/lp/cost"
 }
