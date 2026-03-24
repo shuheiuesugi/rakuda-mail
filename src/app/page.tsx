@@ -964,7 +964,7 @@ function FAQSection() {
           {FAQS.map((faq, i) => (
             <div
               key={i}
-              className={`faq-item fade-in stagger-${i + 1} ${openIndex === i ? "open" : ""}`}
+              className={`faq-item ${openIndex === i ? "open" : ""}`}
             >
               <button className="faq-question" onClick={() => toggle(i)} aria-expanded={openIndex === i}>
                 <span>{faq.q}</span>

@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "/_not-found",
-  "/page": "/",
-  "/signup/page": "/signup",
-  "/tokushoho/page": "/tokushoho",
-  "/terms/page": "/terms",
   "/security/page": "/security",
-  "/book-call/page": "/book-call",
+  "/page": "/",
   "/privacy/page": "/privacy",
-  "/lp/cost/page": "/lp/cost",
-  "/lp/easy/page": "/lp/easy"
+  "/terms/page": "/terms",
+  "/tokushoho/page": "/tokushoho",
+  "/book-call/page": "/book-call",
+  "/signup/page": "/signup",
+  "/lp/easy/page": "/lp/easy",
+  "/lp/cost/page": "/lp/cost"
 }
