@@ -128,6 +128,10 @@ rakuda-mail/
 
 ## 6. 既知の課題・制限
 
+### 注意: CSSアニメーションとインタラクティブ要素の共存
+- `fade-in` / `animate-on-scroll` 等の `opacity: 0` → `visible` で `opacity: 1` にするCSSクラスを、React stateで動的にclassNameが変わる要素（FAQ等）に付けると、状態更新時に `visible` が外れて要素が消えるバグが発生する
+- **対策**: FAQ等のインタラクティブ要素には `fade-in` / `animate-on-scroll` を絶対に付けないこと（修正済み）
+
 ### フォームのバックエンド未接続
 - `signup/page.tsx` と `book-call/page.tsx` のフォーム送信は現在**フロントエンドのみ**（`setSubmitted(true)` でUI切替するだけ）
 - 実際のデータ送信には Formspree / Google Forms / Supabase 等のバックエンド統合が必要
