@@ -8,13 +8,8 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Conversion tracking
-    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-      (window as any).gtag("event", "sign_up", {
-        method: "email",
-        event_category: "conversion",
-      });
-    }
+    // Conversion tracking via GTM dataLayer
+    if (typeof window !== "undefined") { (window as any).dataLayer?.push({ event: "sign_up", method: "email" }); }
     // Submit to Formspree (TODO: Replace SIGNUP_FORM_ID with actual Formspree form ID)
     try {
       await fetch("https://formspree.io/f/SIGNUP_FORM_ID", {

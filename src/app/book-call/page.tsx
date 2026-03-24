@@ -23,12 +23,8 @@ export default function BookCallPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-      (window as any).gtag("event", "generate_lead", {
-        event_category: "conversion",
-        event_label: "book_call",
-      });
-    }
+    // Conversion tracking via GTM dataLayer
+    if (typeof window !== "undefined") { (window as any).dataLayer?.push({ event: "generate_lead", event_label: "book_call" }); }
     // Submit to Formspree (TODO: Replace BOOKCALL_FORM_ID with actual Formspree form ID)
     try {
       await fetch("https://formspree.io/f/BOOKCALL_FORM_ID", {
