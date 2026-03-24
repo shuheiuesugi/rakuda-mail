@@ -1,12 +1,12 @@
 {
   "/_not-found/page": "/_not-found",
   "/book-call/page": "/book-call",
+  "/privacy/page": "/privacy",
+  "/security/page": "/security",
   "/page": "/",
   "/signup/page": "/signup",
-  "/security/page": "/security",
-  "/terms/page": "/terms",
   "/tokushoho/page": "/tokushoho",
-  "/privacy/page": "/privacy",
+  "/terms/page": "/terms",
   "/lp/easy/page": "/lp/easy",
   "/lp/cost/page": "/lp/cost"
 }
