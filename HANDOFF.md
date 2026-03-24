@@ -155,7 +155,7 @@ rakuda-mail/
 
 ### ローカル開発
 ```bash
-cd /tmp/rakuda-redesign/rakuda-mail
+cd ${OUTPUT_BASE}/memo/rakuda-redesign/rakuda-mail
 npm install
 npm run dev        # http://localhost:3000/rakuda-mail/
 ```
