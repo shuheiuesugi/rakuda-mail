@@ -25,7 +25,7 @@ export default function TokushohoPage() {
               <tbody>
                 <tr>
                   <th>販売業者</th>
-                  <td>ラクダMail運営事務局</td>
+                  <td>RAKUDAメール運営事務局</td>
                 </tr>
                 <tr>
                   <th>運営統括責任者</th>
@@ -41,7 +41,7 @@ export default function TokushohoPage() {
                 </tr>
                 <tr>
                   <th>メールアドレス</th>
-                  <td><a href="mailto:support@rakuda-mail.com">support@rakuda-mail.com</a></td>
+                  <td><a href="mailto:info@rakuda-ai.com">info@rakuda-ai.com</a></td>
                 </tr>
                 <tr>
                   <th>販売URL</th>
@@ -51,9 +51,10 @@ export default function TokushohoPage() {
                   <th>販売価格</th>
                   <td>
                     <ul className="legal-inline-list">
-                      <li>Starter（無料プラン）：0円</li>
-                      <li>Standard：月額1,980円（税込）</li>
-                      <li>Enterprise：月額4,980円（税込）</li>
+                      <li>Free（無料プラン）：0円</li>
+                      <li>Proプラン：月額2,980円（税込）/ 年間プラン 月額2,480円（税込）</li>
+                      <li>Teamプラン：月額9,800円（税込）/ 3名から</li>
+                      <li>Enterpriseプラン：個別見積もり</li>
                     </ul>
                   </td>
                 </tr>

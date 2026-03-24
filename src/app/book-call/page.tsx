@@ -23,6 +23,13 @@ export default function BookCallPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Conversion tracking
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      (window as any).gtag("event", "generate_lead", {
+        event_category: "conversion",
+        event_label: "book_call",
+      });
+    }
     setSubmitted(true);
   };
 
@@ -60,7 +67,7 @@ export default function BookCallPage() {
               <div className="book-call-form-section">
                 <h1 className="book-call-title">導入相談を予約する</h1>
                 <p className="book-call-subtitle">
-                  ラクダMailの導入をご検討中の企業様向けに、オンラインまたは対面での無料相談を承っております。
+                  RAKUDAメールの導入をご検討中の企業様向けに、オンラインまたは対面での無料相談を承っております。
                 </p>
 
                 <form className="book-call-form" onSubmit={handleSubmit}>
@@ -239,7 +246,7 @@ export default function BookCallPage() {
                 <div className="book-call-contact-card">
                   <h3>その他のお問い合わせ</h3>
                   <p>
-                    メール：<a href="mailto:support@rakuda-mail.com">support@rakuda-mail.com</a>
+                    メール：<a href="mailto:info@rakuda-ai.com">info@rakuda-ai.com</a>
                   </p>
                   <p>
                     営業時間：平日 10:00〜18:00（土日祝休み）

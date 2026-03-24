@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           <p className="legal-updated">最終更新日：2026年3月24日</p>
 
           <p className="legal-intro">
-            ラクダMail（以下「本サービス」）は、ユーザーのプライバシーを最重要視しています。本プライバシーポリシーは、本サービスにおける個人情報の収集、利用、管理について説明するものです。
+            RAKUDAメール（以下「本サービス」）は、ユーザーのプライバシーを最重要視しています。本プライバシーポリシーは、本サービスにおける個人情報の収集、利用、管理について説明するものです。
           </p>
 
           <section className="legal-section">
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
           <section className="legal-section">
             <h2>2. メールデータの取り扱い</h2>
-            <p>ラクダMailでは、ユーザーのプライバシーを保護するため、以下のポリシーを厳守しています。</p>
+            <p>RAKUDAメールでは、ユーザーのプライバシーを保護するため、以下のポリシーを厳守しています。</p>
             <ul>
               <li>メール本文はAI処理後に<strong>即時削除</strong>され、サーバーに一切保存しません。</li>
               <li>AIの学習データとしてメール内容を使用することはありません。</li>
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
               <li>個人情報の利用停止を請求する権利</li>
               <li>アカウントの削除を請求する権利</li>
             </ul>
-            <p>上記の請求については、本サービス内の設定画面、またはメール（support@rakuda-mail.com）にてお申し出ください。</p>
+            <p>上記の請求については、本サービス内の設定画面、またはメール（info@rakuda-ai.com）にてお申し出ください。</p>
           </section>
 
           <section className="legal-section">
@@ -108,8 +108,8 @@ export default function PrivacyPage() {
             <h2>9. お問い合わせ</h2>
             <p>プライバシーに関するご質問・ご相談は、以下までご連絡ください。</p>
             <ul>
-              <li>メール：<a href="mailto:privacy@rakuda-mail.com">privacy@rakuda-mail.com</a></li>
-              <li>運営：ラクダMail運営事務局</li>
+              <li>メール：<a href="mailto:info@rakuda-ai.com">info@rakuda-ai.com</a></li>
+              <li>運営：RAKUDAメール運営事務局</li>
             </ul>
           </section>
         </div>

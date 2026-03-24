@@ -19,10 +19,10 @@ export default function SecurityPage() {
         <div className="legal-content">
           <h1 className="legal-title">セキュリティ</h1>
           <p className="legal-updated">
-            ラクダMail &#8212; AIメール作成ツール
+            RAKUDAメール &#8212; AIメール作成ツール
           </p>
           <p className="legal-intro">
-            ラクダMailは、お客様のデータを安全に保護するため、業界最高水準のセキュリティ対策を実施しています。メール本文は一切保存せず、プライバシーファーストの設計思想でサービスを構築しています。
+            RAKUDAメールは、お客様のデータを安全に保護するため、業界最高水準のセキュリティ対策を実施しています。メール本文は一切保存せず、プライバシーファーストの設計思想でサービスを構築しています。
           </p>
 
           <div className="security-grid">
@@ -49,7 +49,7 @@ export default function SecurityPage() {
               <div className="security-card-icon purple">&#128273;</div>
               <h3>Google OAuth 2.0認証</h3>
               <p>
-                Googleの公式OAuth 2.0プロトコルを採用。ラクダMailがパスワードを保存することはありません。必要最小限のスコープのみ要求し、権限を最小化しています。
+                Googleの公式OAuth 2.0プロトコルを採用。RAKUDAメールがパスワードを保存することはありません。必要最小限のスコープのみ要求し、権限を最小化しています。
               </p>
             </div>
 
@@ -87,7 +87,7 @@ export default function SecurityPage() {
               セキュリティに関するご質問、脆弱性の報告については、以下までご連絡ください。
             </p>
             <p>
-              メール：<a href="mailto:security@rakuda-mail.com">security@rakuda-mail.com</a>
+              メール：<a href="mailto:info@rakuda-ai.com">info@rakuda-ai.com</a>
             </p>
           </section>
         </div>

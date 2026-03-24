@@ -15,7 +15,7 @@ const FAQS = [
   },
   {
     q: "他のAIメールツールと比較してどのくらい安いですか？",
-    a: "海外の主要AIメールツールは月$29〜$49（約4,500〜7,500円）が相場です。ラクダMailは月¥2,980で同等以上の機能を提供しており、約60%のコスト削減になります。",
+    a: "海外の主要AIメールツールは月$29〜$49（約4,500〜7,500円）が相場です。RAKUDAメールは月¥2,980で同等以上の機能を提供しており、約60%のコスト削減になります。",
   },
   {
     q: "年払いにするとどれくらいお得ですか？",
@@ -54,28 +54,28 @@ function useScrollFade() {
 // --- SVG Icons ---
 function CheckIcon() {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1.5 5.5L4 8l5-6" />
     </svg>
   );
 }
 function ArrowRight() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 7h12M8 2l5 5-5 5" />
     </svg>
   );
 }
 function SparkleIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
       <path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" />
     </svg>
   );
 }
 function ChevronDown() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 4l4 4 4-4" />
     </svg>
   );
@@ -250,7 +250,7 @@ function StatsSection() {
           <div className="ba-card after fade-in-right">
             <div className="ba-card-label after">
               <span className="ba-label-icon">&#10024;</span>
-              ラクダMail導入後
+              RAKUDAメール導入後
             </div>
             <div className="ba-card-body">
               <div className="ba-step">
@@ -283,7 +283,7 @@ function StatsSection() {
 function FeaturesSection() {
   const features = [
     {
-      icon: "&#128181;",
+      icon: "💵",
       color: "blue",
       title: "圧倒的な低コスト",
       desc: "月額¥2,980でメール生成無制限。海外ツールの約1/3の価格で同等以上の品質を提供。永年無料プランも用意。",
@@ -291,7 +291,7 @@ function FeaturesSection() {
       statLabel: "Proプラン",
     },
     {
-      icon: "&#9889;",
+      icon: "⚡",
       color: "green",
       title: "人件費を97%削減",
       desc: "メール1通15分→30秒へ。1日20通処理する社員なら、月30万円以上の工数削減効果。導入初月からROI達成。",
@@ -299,7 +299,7 @@ function FeaturesSection() {
       statLabel: "コスト削減率",
     },
     {
-      icon: "&#128200;",
+      icon: "📈",
       color: "purple",
       title: "チーム全体で効率化",
       desc: "Teamプランなら1名あたり月¥2,600〜。テンプレート共有で新人もベテランも同じ品質。教育コストもゼロに。",
@@ -307,7 +307,7 @@ function FeaturesSection() {
       statLabel: "1名あたり月額",
     },
     {
-      icon: "&#128197;",
+      icon: "📅",
       color: "amber",
       title: "年払いで2ヶ月分お得",
       desc: "年払いを選択すれば実質2ヶ月分が無料に。Proプランなら年間¥6,000の節約。長く使うほどお得な料金体系。",
@@ -315,7 +315,7 @@ function FeaturesSection() {
       statLabel: "年間節約額",
     },
     {
-      icon: "&#128274;",
+      icon: "🔒",
       color: "navy",
       title: "隠れたコストなし",
       desc: "初期費用ゼロ、追加課金なし。全機能が料金内に含まれます。メール本文の保存もしないので、情報漏洩リスクもゼロ。",
@@ -323,7 +323,7 @@ function FeaturesSection() {
       statLabel: "初期費用",
     },
     {
-      icon: "&#128176;",
+      icon: "💰",
       color: "pink",
       title: "導入コストもゼロ",
       desc: "Gmailアカウントで30秒で登録完了。IT部門の対応不要、研修不要。翌日から全社員がすぐに使い始められます。",
@@ -354,7 +354,7 @@ function FeaturesSection() {
               key={f.title}
               className={`feature-card fade-in stagger-${i + 1}`}
             >
-              <div className={`feature-icon ${f.color}`} dangerouslySetInnerHTML={{ __html: f.icon }} />
+              <div className={`feature-icon ${f.color}`}>{f.icon}</div>
               <h3 className="feature-title">{f.title}</h3>
               <p className="feature-desc">{f.desc}</p>
               <div className="feature-stat">
@@ -428,7 +428,7 @@ function PricingSection() {
             </thead>
             <tbody>
               <tr style={{ background: "rgba(59,130,246,0.04)", borderBottom: "1px solid var(--border)" }}>
-                <td style={{ padding: "14px 16px", fontWeight: 700, color: "var(--accent)" }}>ラクダMail</td>
+                <td style={{ padding: "14px 16px", fontWeight: 700, color: "var(--accent)" }}>RAKUDAメール</td>
                 <td style={{ padding: "14px 16px", textAlign: "center", fontWeight: 800, color: "var(--accent)" }}>{annual ? "¥2,480" : "¥2,980"}</td>
                 <td style={{ padding: "14px 16px", textAlign: "center", fontWeight: 600 }}>無制限</td>
                 <td style={{ padding: "14px 16px", textAlign: "center", color: "var(--success)" }}>&#10004;</td>
@@ -559,7 +559,7 @@ function FAQSection() {
         <div className="faq-list">
           {FAQS.map((faq, i) => (
             <div key={i} className={`faq-item fade-in stagger-${i + 1} ${openIndex === i ? "open" : ""}`}>
-              <button className="faq-question" onClick={() => toggle(i)}>
+              <button className="faq-question" onClick={() => toggle(i)} aria-expanded={openIndex === i}>
                 <span>{faq.q}</span>
                 <span className="faq-chevron"><ChevronDown /></span>
               </button>

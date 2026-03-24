@@ -8,7 +8,24 @@ export default function SignupPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Conversion tracking
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      (window as any).gtag("event", "sign_up", {
+        method: "email",
+        event_category: "conversion",
+      });
+    }
     setSubmitted(true);
+  };
+
+  const handleGoogleSignup = () => {
+    if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+      (window as any).gtag("event", "sign_up", {
+        method: "google",
+        event_category: "conversion",
+      });
+    }
+    // TODO: Implement actual Google OAuth flow
   };
 
   return (
@@ -86,6 +103,7 @@ export default function SignupPage() {
             <button
               type="button"
               style={styles.googleBtn}
+              onClick={handleGoogleSignup}
               onMouseEnter={(e) => { e.currentTarget.style.background = "#f5f5f5"; e.currentTarget.style.borderColor = "#bbb"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "#dadce0"; }}
             >

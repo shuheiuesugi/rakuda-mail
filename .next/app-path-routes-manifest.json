@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
-  "/security/page": "/security",
   "/book-call/page": "/book-call",
   "/privacy/page": "/privacy",
   "/page": "/",
+  "/security/page": "/security",
   "/signup/page": "/signup",
   "/terms/page": "/terms",
   "/tokushoho/page": "/tokushoho",

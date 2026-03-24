@@ -55,28 +55,28 @@ function useScrollFade() {
 // --- SVG Icons ---
 function CheckIcon() {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1.5 5.5L4 8l5-6" />
     </svg>
   );
 }
 function ArrowRight() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 7h12M8 2l5 5-5 5" />
     </svg>
   );
 }
 function SparkleIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
       <path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" />
     </svg>
   );
 }
 function ChevronDown() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 4l4 4 4-4" />
     </svg>
   );
@@ -202,7 +202,7 @@ function BeforeAfterSection() {
             メール返信が<span className="heading-accent">こんなにラクに</span>
           </h2>
           <p className="section-description">
-            今までのメール作業と、ラクダMailを使った場合を比べてみてください。
+            今までのメール作業と、RAKUDAメールを使った場合を比べてみてください。
           </p>
         </div>
 
@@ -257,7 +257,7 @@ function BeforeAfterSection() {
           <div className="ba-card after fade-in-right">
             <div className="ba-card-label after">
               <span className="ba-label-icon">&#10024;</span>
-              ラクダMailなら
+              RAKUDAメールなら
             </div>
             <div className="ba-card-body">
               <div className="ba-step">
@@ -290,7 +290,7 @@ function BeforeAfterSection() {
 function FeaturesSection() {
   const features = [
     {
-      icon: "&#129302;",
+      icon: "🤖",
       color: "blue",
       title: "AIがメールを書いてくれる",
       desc: "返信したいメールを選ぶだけ。AIが相手の話の内容を理解して、ぴったりの返信を自動で作ってくれます。",
@@ -298,7 +298,7 @@ function FeaturesSection() {
       statLabel: "で完成",
     },
     {
-      icon: "&#127917;",
+      icon: "🎮",
       color: "purple",
       title: "丁寧さを選べる",
       desc: "「丁寧に」「親しみやすく」「短く」「英語で」の4つから選ぶだけ。同じ内容でも、相手に合わせた書き方に変わります。",
@@ -306,7 +306,7 @@ function FeaturesSection() {
       statLabel: "の書き方",
     },
     {
-      icon: "&#128221;",
+      icon: "📝",
       color: "green",
       title: "よく使う文章を保存",
       desc: "いつも使う挨拶やお礼のメールをテンプレートとして保存できます。次からはワンクリックで呼び出せます。",
@@ -314,7 +314,7 @@ function FeaturesSection() {
       statLabel: "保存OK",
     },
     {
-      icon: "&#128101;",
+      icon: "👥",
       color: "amber",
       title: "チームみんなで使える",
       desc: "新人の方でもベテランと同じ品質のメールが書けます。チーム全員でテンプレートを共有できるので、メールの書き方で迷いません。",
@@ -322,7 +322,7 @@ function FeaturesSection() {
       statLabel: "そのまま送れる",
     },
     {
-      icon: "&#127758;",
+      icon: "🌎",
       color: "pink",
       title: "外国語メールもおまかせ",
       desc: "英語・中国語・韓国語のメールもAIが作ってくれます。翻訳アプリを使わなくても、自然な外国語メールが完成します。",
@@ -330,7 +330,7 @@ function FeaturesSection() {
       statLabel: "の言語に対応",
     },
     {
-      icon: "&#128274;",
+      icon: "🔒",
       color: "navy",
       title: "メールの中身は残りません",
       desc: "あなたのメールの内容は、AIが読んだらすぐに消えます。サーバーには一切保存されないので、安心して使えます。",
@@ -348,7 +348,7 @@ function FeaturesSection() {
             できること
           </div>
           <h2 className="section-heading">
-            ラクダMailで<br className="br-desktop" />できること
+            RAKUDAメールで<br className="br-desktop" />できること
           </h2>
           <p className="section-description" style={{ margin: "0 auto" }}>
             むずかしい設定は何もありません。Gmailにログインするだけで、すぐに使い始められます。
@@ -361,7 +361,7 @@ function FeaturesSection() {
               key={f.title}
               className={`feature-card fade-in stagger-${i + 1}`}
             >
-              <div className={`feature-icon ${f.color}`} dangerouslySetInnerHTML={{ __html: f.icon }} />
+              <div className={`feature-icon ${f.color}`}>{f.icon}</div>
               <h3 className="feature-title">{f.title}</h3>
               <p className="feature-desc">{f.desc}</p>
               <div className="feature-stat">
@@ -580,7 +580,7 @@ function FAQSection() {
         <div className="faq-list">
           {FAQS.map((faq, i) => (
             <div key={i} className={`faq-item fade-in stagger-${i + 1} ${openIndex === i ? "open" : ""}`}>
-              <button className="faq-question" onClick={() => toggle(i)}>
+              <button className="faq-question" onClick={() => toggle(i)} aria-expanded={openIndex === i}>
                 <span>{faq.q}</span>
                 <span className="faq-chevron"><ChevronDown /></span>
               </button>

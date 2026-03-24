@@ -107,7 +107,7 @@ const FAQS = [
   },
   {
     q: "メールの内容はサーバーに保存されますか？",
-    a: "いいえ。ラクダMailはプライバシーを最優先に設計しています。メール本文はAI処理後に即時削除され、サーバーには一切保存しません。OAuth認証情報も暗号化して管理しています。",
+    a: "いいえ。RAKUDAメールはプライバシーを最優先に設計しています。メール本文はAI処理後に即時削除され、サーバーには一切保存しません。OAuth認証情報も暗号化して管理しています。",
   },
   {
     q: "どのメールサービスに対応していますか？",
@@ -182,7 +182,7 @@ const FEATURES = [
 // --- SVG Icons ---
 function ChevronDown() {
   return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 4l4 4 4-4" />
     </svg>
   );
@@ -190,7 +190,7 @@ function ChevronDown() {
 
 function ArrowRight() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1 7h12M8 2l5 5-5 5" />
     </svg>
   );
@@ -198,7 +198,7 @@ function ArrowRight() {
 
 function CheckIcon() {
   return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M1.5 5.5L4 8l5-6" />
     </svg>
   );
@@ -206,7 +206,7 @@ function CheckIcon() {
 
 function SparkleIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
       <path d="M8 0l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" />
     </svg>
   );
@@ -291,7 +291,7 @@ function Header() {
   return (
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="header-inner">
-        <a href="#" className="header-logo" style={{ display: "flex", alignItems: "center", gap: "0" }}>
+        <a href="./" className="header-logo" style={{ display: "flex", alignItems: "center", gap: "0" }}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" className="header-logo-svg" style={{ height: "20px", width: "auto" }}>
             <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
             <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
@@ -328,7 +328,7 @@ function Header() {
 // HERO
 // ================================================================
 function HeroSection() {
-  const statUsers = useCountUp(4720);
+  const statUsers = useCountUp(1200);
   const statRate = useCountUp(92);
   const statMin = useCountUp(47);
 
@@ -483,7 +483,7 @@ function SocialProofStrip() {
   return (
     <section className="social-proof">
       <div className="container">
-        <p className="social-proof-label">スタートアップから上場企業まで、470社以上が導入</p>
+        <p className="social-proof-label">スタートアップから上場企業まで、120社以上が導入</p>
         <div className="social-proof-logos">
           {["TechCorp", "MediaOne", "FinGrowth", "CloudBase", "SmartOps"].map((name) => (
             <div key={name} className="social-proof-logo">
@@ -861,7 +861,7 @@ function PricingSection() {
                   Gmail連携
                 </li>
               </ul>
-              <button className="pricing-btn outline">無料で始める</button>
+              <a href="./signup" className="pricing-btn outline" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>無料で始める</a>
             </div>
           </div>
 
@@ -902,7 +902,7 @@ function PricingSection() {
                   優先サポート
                 </li>
               </ul>
-              <button className="pricing-btn filled">14日間無料で試す</button>
+              <a href="./signup" className="pricing-btn filled" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>14日間無料で試す</a>
             </div>
           </div>
 
@@ -940,7 +940,7 @@ function PricingSection() {
                   専任サポート担当
                 </li>
               </ul>
-              <button className="pricing-btn dark">お問い合わせ</button>
+              <a href="./book-call" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>お問い合わせ</a>
             </div>
           </div>
         </div>
@@ -979,7 +979,7 @@ function FAQSection() {
               key={i}
               className={`faq-item fade-in stagger-${i + 1} ${openIndex === i ? "open" : ""}`}
             >
-              <button className="faq-question" onClick={() => toggle(i)}>
+              <button className="faq-question" onClick={() => toggle(i)} aria-expanded={openIndex === i}>
                 <span>{faq.q}</span>
                 <span className="faq-chevron">
                   <ChevronDown />
