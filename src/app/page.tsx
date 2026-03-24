@@ -477,23 +477,10 @@ function HeroSection() {
 }
 
 // ================================================================
-// SOCIAL PROOF (Logos)
+// SOCIAL PROOF (Logos) — 実導入企業ロゴ確保後に有効化
 // ================================================================
 function SocialProofStrip() {
-  return (
-    <section className="social-proof">
-      <div className="container">
-        <p className="social-proof-label">スタートアップから上場企業まで、120社以上が導入</p>
-        <div className="social-proof-logos">
-          {["TechCorp", "MediaOne", "FinGrowth", "CloudBase", "SmartOps"].map((name) => (
-            <div key={name} className="social-proof-logo">
-              <span className="social-proof-logo-text">{name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return null;
 }
 
 // ================================================================
