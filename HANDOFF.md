@@ -216,7 +216,7 @@ git push -f origin gh-pages
 
 | リソース | URL |
 |---------|-----|
-| 引き継ぎマニュアル | https://drive.google.com/open?id=1A_5rXOXcYDGcInN6gvHkkuxyXt6qaqbM&usp=drive_fs |
+| 引き継ぎマニュアル（全体） | https://drive.google.com/file/d/1R1g2NLrXQgp0sOsZf2q2Zxdf68hAeWGk/view |
 | 本番サービス（参考） | https://mail.rakuda-ai.com/ |
 | 本番リポジトリ（参考） | https://github.com/takahirohonda-ag/rakuda-mail |
 | RAKUDA Reception LP | https://shuheiuesugi.github.io/rakuda-reception/ |
