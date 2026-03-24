@@ -306,7 +306,7 @@ function Header() {
           <a href="#faq" onClick={() => setMobileOpen(false)}>FAQ</a>
         </nav>
 
-        <a href="#cta" className="header-cta">
+        <a href="./signup" className="header-cta">
           無料で試す
         </a>
 
@@ -353,7 +353,7 @@ function HeroSection() {
           </p>
 
           <div className="hero-actions">
-            <a href="#cta" className="btn-primary btn-glow">
+            <a href="./signup" className="btn-primary btn-glow">
               <SparkleIcon />
               無料で始める
               <ArrowRight />
@@ -1014,7 +1014,7 @@ function CTASection() {
             無料プランで今すぐ始められます。クレジットカード不要、Gmailアカウントだけで登録完了。
           </p>
           <div className="cta-actions">
-            <a href="#" className="btn-primary btn-glow btn-large">
+            <a href="./signup" className="btn-primary btn-glow btn-large">
               <SparkleIcon />
               無料アカウントを作成
               <ArrowRight />
@@ -1097,9 +1097,10 @@ function Footer() {
             &copy; 2026 ラクダMail. All rights reserved.
           </p>
           <div className="footer-bottom-links">
-            <a href="#">利用規約</a>
-            <a href="#">プライバシーポリシー</a>
-            <a href="#">特定商取引法に基づく表記</a>
+            <a href="./terms">利用規約</a>
+            <a href="./privacy">プライバシーポリシー</a>
+            <a href="./tokushoho">特定商取引法に基づく表記</a>
+            <a href="./security">セキュリティ</a>
           </div>
         </div>
       </div>
