@@ -532,7 +532,7 @@ function PricingSection() {
           {/* Enterprise */}
           <div className="pricing-card team fade-in stagger-3">
             <div className="pricing-card-inner">
-              <div className="pricing-name">チームプラン</div>
+              <div className="pricing-name">エンタープライズ</div>
               <div className="pricing-tagline">会社やチームで使いたい方に</div>
               <div className="pricing-price">
                 <span className="pricing-amount" style={{ fontSize: 28 }}>お問い合わせ</span>
@@ -543,7 +543,7 @@ function PricingSection() {
                 <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>Proプランの全機能</li>
                 <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>テンプレートをチームで共有</li>
                 <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>管理者用の画面</li>
-                <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>使い方レポート</li>
+                <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>セキュリティ設定（SSO対応）</li>
                 <li className="pricing-feature"><span className="pricing-check green"><CheckIcon /></span>専任の担当者がサポート</li>
               </ul>
               <a href="../book-call" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>相談する（無料）</a>

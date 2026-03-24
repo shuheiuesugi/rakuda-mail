@@ -118,8 +118,8 @@ const FAQS = [
     a: "はい。ビジネスメールに特化した言語モデルを採用しており、敬語の使い分けや文脈に応じた適切な表現を生成します。社内テストでは92%のユーザーが「修正なしで送信可能」と回答しています。",
   },
   {
-    q: "チームプランの最低人数はありますか？",
-    a: "最低3名からご利用いただけます。チーム全体でテンプレートやトーン設定を共有でき、メールの品質を組織として統一できます。10名以上のご契約は別途お見積もりいたします。",
+    q: "Team・Enterpriseプランの違いは？",
+    a: "Teamプラン（月¥9,800〜）は3名以上のチーム向けで、テンプレート共有や管理者ダッシュボードが使えます。Enterpriseプランはさらに SSO/SAML連携、API、SLA保証、監査ログなど、大企業のIT統制要件に対応します。詳細はお問い合わせください。",
   },
   {
     q: "解約はいつでもできますか？",
@@ -925,6 +925,50 @@ function PricingSection() {
                 <li className="pricing-feature">
                   <span className="pricing-check green"><CheckIcon /></span>
                   専任サポート担当
+                </li>
+              </ul>
+              <a href="./signup" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>チームを始める</a>
+            </div>
+          </div>
+
+          {/* Enterprise */}
+          <div className="pricing-card enterprise fade-in stagger-4">
+            <div className="pricing-card-inner">
+              <div className="pricing-name">Enterprise</div>
+              <div className="pricing-tagline">大企業・法人のIT統制要件を満たす</div>
+              <div className="pricing-price">
+                <span className="pricing-amount" style={{ fontSize: 28 }}>お問い合わせ</span>
+              </div>
+              <div className="pricing-note">カスタム料金・SLA対応</div>
+              <div className="pricing-divider" />
+              <ul className="pricing-features">
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  Teamの全機能
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  SSO / SAML 2.0 連携
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  REST API / Webhook
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  専任カスタマーサクセス
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  SLA 99.9% 稼働率保証
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  監査ログ / コンプライアンス
+                </li>
+                <li className="pricing-feature">
+                  <span className="pricing-check green"><CheckIcon /></span>
+                  IP ホワイトリスト
                 </li>
               </ul>
               <a href="./book-call" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>お問い合わせ</a>

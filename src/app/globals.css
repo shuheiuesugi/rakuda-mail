@@ -1865,9 +1865,16 @@ body {
 
 @media (min-width: 768px) {
   .pricing-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     align-items: start;
+  }
+}
+
+@media (min-width: 1080px) {
+  .pricing-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
   }
 }
 
@@ -1928,6 +1935,34 @@ body {
 }
 
 .pricing-card.team .pricing-divider {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pricing-card.enterprise {
+  background: var(--bg-dark);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.pricing-card.enterprise .pricing-name,
+.pricing-card.enterprise .pricing-amount {
+  color: white;
+}
+
+.pricing-card.enterprise .pricing-tagline,
+.pricing-card.enterprise .pricing-note,
+.pricing-card.enterprise .pricing-period {
+  color: var(--text-on-dark-muted);
+}
+
+.pricing-card.enterprise .pricing-currency {
+  color: var(--text-on-dark-muted);
+}
+
+.pricing-card.enterprise .pricing-feature {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.pricing-card.enterprise .pricing-divider {
   background: rgba(255, 255, 255, 0.08);
 }
 
