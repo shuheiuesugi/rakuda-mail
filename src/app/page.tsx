@@ -848,7 +848,7 @@ function PricingSection() {
                   Gmail連携
                 </li>
               </ul>
-              <a href="./signup" className="pricing-btn outline" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>無料で始める</a>
+              <a href="./signup?plan=free" className="pricing-btn outline" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>無料で始める</a>
             </div>
           </div>
 
@@ -889,7 +889,7 @@ function PricingSection() {
                   優先サポート
                 </li>
               </ul>
-              <a href="./signup" className="pricing-btn filled" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>14日間無料で試す</a>
+              <a href="./signup?plan=pro" className="pricing-btn filled" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>14日間無料で試す</a>
             </div>
           </div>
 
@@ -927,7 +927,7 @@ function PricingSection() {
                   専任サポート担当
                 </li>
               </ul>
-              <a href="./signup" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>チームを始める</a>
+              <a href="./signup?plan=team" className="pricing-btn dark" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>チームを始める</a>
             </div>
           </div>
 

@@ -478,7 +478,7 @@ function PricingSection() {
                 <li className="pricing-feature"><span className="pricing-check blue"><CheckIcon /></span>基本テンプレート5件</li>
                 <li className="pricing-feature"><span className="pricing-check blue"><CheckIcon /></span>Gmail連携</li>
               </ul>
-              <a href="../signup" className="pricing-btn outline" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>無料で始める</a>
+              <a href="../signup?plan=free" className="pricing-btn outline" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>無料で始める</a>
             </div>
           </div>
 
@@ -504,7 +504,7 @@ function PricingSection() {
                 <li className="pricing-feature"><span className="pricing-check accent"><CheckIcon /></span>多言語対応（4言語）</li>
                 <li className="pricing-feature"><span className="pricing-check accent"><CheckIcon /></span>優先サポート</li>
               </ul>
-              <a href="../signup" className="pricing-btn filled" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>14日間無料で試す</a>
+              <a href="../signup?plan=pro" className="pricing-btn filled" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>14日間無料で試す</a>
             </div>
           </div>
 
