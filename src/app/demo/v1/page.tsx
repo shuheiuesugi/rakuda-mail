@@ -33,15 +33,10 @@ const labels = [
   { name: "ゴミ箱", count: 0 },
 ];
 
-const WaveSvg = () => (
-  <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-    <path d="M4 20 Q8 8, 16 16 T28 12" stroke="url(#wg)" strokeWidth="3" strokeLinecap="round" fill="none" />
-    <defs>
-      <linearGradient id="wg" x1="0" y1="0" x2="32" y2="32">
-        <stop offset="0%" stopColor="#60a5fa" />
-        <stop offset="100%" stopColor="#a78bfa" />
-      </linearGradient>
-    </defs>
+const LogoSvg = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
+    <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="#60a5fa" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+    <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="#e2e8f0" letterSpacing="3">RAKUDAメール</text>
   </svg>
 );
 
@@ -112,9 +107,9 @@ export default function DemoV1() {
     display: "flex",
     flexDirection: "column",
     padding: "16px 0",
-    height: "100vh",
+    height: "calc(100vh - 48px)",
     position: "sticky",
-    top: 0,
+    top: 48,
   };
 
   const card: React.CSSProperties = {
@@ -131,6 +126,16 @@ export default function DemoV1() {
 
   return (
     <div style={base}>
+      {/* LP-unified Header */}
+      <header style={{ height: 48, borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", padding: "0 16px", position: "sticky", top: 0, zIndex: 50, background: "rgba(6,10,18,0.8)", backdropFilter: "blur(12px)" }}>
+        <a href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <LogoSvg />
+        </a>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 16 }}>
+          <a href="/" style={{ fontSize: 12, color: "#9ca3af", textDecoration: "none", transition: "color 0.2s" }}>トップに戻る</a>
+        </div>
+      </header>
+
       {/* Demo Navigation */}
       <div style={{ position: "fixed", bottom: 20, left: "50%", transform: "translateX(-50%)", zIndex: 9999, display: "flex", gap: 6, padding: "8px 12px", borderRadius: 12, background: "rgba(6,10,18,0.9)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}>
         {[1,2,3,4,5].map(v => (
@@ -140,12 +145,6 @@ export default function DemoV1() {
       <div style={{ display: "flex" }}>
         {/* Sidebar */}
         <div style={sidebar}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "0 16px", marginBottom: 24 }}>
-            <WaveSvg />
-            <span style={{ fontSize: 16, fontWeight: 700, background: "linear-gradient(135deg, #60a5fa, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              RAKUDAメール
-            </span>
-          </div>
 
           <div style={{ flex: 1 }}>
             {labels.map((label, i) => (
@@ -187,7 +186,7 @@ export default function DemoV1() {
         </div>
 
         {/* Main */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", height: "calc(100vh - 48px)", overflow: "hidden" }}>
           {/* Header */}
           <div style={{ padding: "12px 24px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", gap: 16 }}>
             <div style={{ flex: 1, position: "relative" }}>
@@ -313,11 +312,8 @@ export default function DemoV1() {
       <div style={{ padding: "64px 24px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         <div style={{ maxWidth: 400, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 8 }}>
-              <WaveSvg />
-              <span style={{ fontSize: 20, fontWeight: 700, background: "linear-gradient(135deg, #60a5fa, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                RAKUDAメール
-              </span>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8 }}>
+              <LogoSvg />
             </div>
             <p style={{ fontSize: 13, color: "#7a8494" }}>AIがメール返信をサポートします</p>
           </div>
