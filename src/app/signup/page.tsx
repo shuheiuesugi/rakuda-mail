@@ -36,10 +36,10 @@ export default function SignupPage() {
   return (
     <div style={styles.page}>
       {/* Header */}
-      <header style={styles.header}>
+      <header className="sub-header" style={styles.header}>
         <div style={styles.headerInner}>
           <a href="./" style={styles.logoLink}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto", color: "#1a1a2e" }}>
+            <svg className="header-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
               <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32"
                     stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
               <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif"

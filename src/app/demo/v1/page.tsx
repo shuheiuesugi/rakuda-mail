@@ -35,8 +35,8 @@ const labels = [
 
 const LogoSvg = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
-    <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="#60a5fa" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
-    <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="#e2e8f0" letterSpacing="3">RAKUDAメール</text>
+    <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+    <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
   </svg>
 );
 
@@ -128,7 +128,7 @@ export default function DemoV1() {
     <div style={base}>
       {/* LP-unified Header */}
       <header style={{ height: 48, borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", alignItems: "center", padding: "0 16px", position: "sticky", top: 0, zIndex: 50, background: "rgba(6,10,18,0.8)", backdropFilter: "blur(12px)" }}>
-        <a href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+        <a href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "#fff" }}>
           <LogoSvg />
         </a>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 16 }}>
@@ -312,7 +312,7 @@ export default function DemoV1() {
       <div style={{ padding: "64px 24px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         <div style={{ maxWidth: 400, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8, color: "#fff" }}>
               <LogoSvg />
             </div>
             <p style={{ fontSize: 13, color: "#7a8494" }}>AIがメール返信をサポートします</p>

@@ -26,14 +26,9 @@ const aiDraft = `田中様
 山田 太郎`;
 
 const WaveLogo = () => (
-  <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-    <path d="M4 20c2-4 4-8 6-8s4 6 6 6 4-10 6-10 4 8 6 8" stroke="url(#wg4)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    <defs>
-      <linearGradient id="wg4" x1="0" y1="0" x2="32" y2="32">
-        <stop offset="0%" stopColor="#60a5fa" />
-        <stop offset="100%" stopColor="#a78bfa" />
-      </linearGradient>
-    </defs>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 40" style={{ height: 20, width: "auto" }}>
+    <path d="M4,32 C4,32 12,6 24,6 C34,6 28,28 36,28 C44,28 38,4 48,4 C60,4 68,32 68,32" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+    <text x="80" y="28" fontFamily="'Helvetica Neue',Arial,sans-serif" fontSize="22" fontWeight="300" fill="currentColor" letterSpacing="3">RAKUDAメール</text>
   </svg>
 );
 
@@ -86,9 +81,8 @@ export default function DemoV4() {
       </div>
       {/* Top Bar */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 32px", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(6,10,18,0.6)", backdropFilter: "blur(12px)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
           <WaveLogo />
-          <span style={{ fontSize: 18, fontWeight: 700, background: "linear-gradient(135deg, #60a5fa, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>RAKUDAメール</span>
         </div>
         <div style={{ display: "flex", gap: 4 }}>
           {[
@@ -178,9 +172,8 @@ export default function DemoV4() {
       <div style={{ padding: "40px 32px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
         <h3 style={{ fontSize: 15, fontWeight: 600, color: "#7a8494", marginBottom: 24, letterSpacing: 0.3 }}>ログイン</h3>
         <div style={{ maxWidth: 420, background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12, padding: 32, display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
             <WaveLogo />
-            <span style={{ fontSize: 20, fontWeight: 700, background: "linear-gradient(135deg, #60a5fa, #a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>RAKUDAメール</span>
           </div>
           <p style={{ fontSize: 13, color: "#7a8494", margin: 0, textAlign: "center" }}>Googleアカウントでログインして、AIメール返信を始めましょう</p>
           <button style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 28px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)", color: "#e2e8f0", fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: font }}>
