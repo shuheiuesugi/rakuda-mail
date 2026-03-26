@@ -133,6 +133,12 @@ export default function DemoV3() {
 
   return (
     <div style={base}>
+      {/* Demo Navigation */}
+      <div style={{ position: "fixed", bottom: 20, left: "50%", transform: "translateX(-50%)", zIndex: 9999, display: "flex", gap: 6, padding: "8px 12px", borderRadius: 12, background: "rgba(6,10,18,0.9)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}>
+        {[1,2,3,4,5].map(v => (
+          <a key={v} href={`/demo/v${v}`} style={{ padding: "6px 14px", borderRadius: 8, fontSize: 13, fontWeight: v === 3 ? 600 : 400, color: v === 3 ? "#fff" : "#94a3b8", background: v === 3 ? "#3B82F6" : "transparent", textDecoration: "none", transition: "all 0.2s" }}>V{v}</a>
+        ))}
+      </div>
       <div style={{ display: "flex" }}>
         {/* Compact Sidebar - 60px icons only */}
         <div style={{

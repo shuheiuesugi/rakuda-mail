@@ -104,6 +104,12 @@ export default function DemoV5() {
 
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(165deg, #0a0e17 0%, #0d1a2d 50%, #0f1729 100%)", fontFamily: font, color: "#e2e8f0", display: "flex", flexDirection: "column" }}>
+      {/* Demo Navigation */}
+      <div style={{ position: "fixed", bottom: 20, left: "50%", transform: "translateX(-50%)", zIndex: 9999, display: "flex", gap: 6, padding: "8px 12px", borderRadius: 12, background: "rgba(6,10,18,0.9)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}>
+        {[1,2,3,4,5].map(v => (
+          <a key={v} href={`/demo/v${v}`} style={{ padding: "6px 14px", borderRadius: 8, fontSize: 13, fontWeight: v === 5 ? 600 : 400, color: v === 5 ? "#fff" : "#94a3b8", background: v === 5 ? "#3B82F6" : "transparent", textDecoration: "none", transition: "all 0.2s" }}>V{v}</a>
+        ))}
+      </div>
       {/* App Layout */}
       <div style={{ display: "flex", flex: 1 }}>
         {/* Sidebar */}
